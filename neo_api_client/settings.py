@@ -31,11 +31,11 @@ PROD_URL = {
     "order_book": "apim/orders/2.0/quick/user/orders",
     "trade_report": "apim/orders/2.0/quick/user/trades",
     "positions": "apim/orders/2.0/quick/user/positions",
-    "holdings": "apim/Portfolio/1.0/portfolio/v1/holdings",
-    "margin": "Orders/2.0/quick/user/check-margin",
+    "holdings": "apim/portfolio/1.0/portfolio/v1/holdings",
+    "margin": "apim/orders/2.0/quick/user/check-margin",
     "scrip_master": "apim/files/1.0/masterscrip/v1/file-paths",
-    "limits": "Orders/2.0/quick/user/limits",
-    "logout": "login/1.0/logout"
+    "limits": "apim/orders/2.0/quick/user/limits",
+    "logout": "apim/login/1.0/logout"
 }
 
 exchange_segment_allowed_values = ["NSE", "nse", "BSE", "bse", "NFO", "nfo", "BFO", "bfo", "CDS", "cds", "BCD", "bcd",
