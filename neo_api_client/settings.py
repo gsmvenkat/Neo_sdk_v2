@@ -21,19 +21,19 @@ UAT_URL = {
 }
 
 PROD_URL = {
-    "view_token": "login/1.0/login/v2/validate",
-    "generate_otp": "login/1.0/login/otp/generate",
-    "edit_token": "login/1.0/login/v2/validate",
-    "place_order": "Orders/2.0/quick/order/rule/ms/place",
-    "cancel_order": "Orders/2.0/quick/order/cancel",
-    "modify_order": "Orders/2.0/quick/order/vr/modify",
-    "order_history": "Orders/2.0/quick/order/history",
-    "order_book": "Orders/2.0/quick/user/orders",
-    "trade_report": "Orders/2.0/quick/user/trades",
-    "positions": "Orders/2.0/quick/user/positions",
-    "holdings": "Portfolio/1.0/portfolio/v1/holdings",
+    "view_token": "apim/login/1.0/login/v2/validate",
+    "generate_otp": "apim/login/1.0/login/otp/generate",
+    "edit_token": "apim/login/1.0/login/v2/validate",
+    "place_order": "apim/orders/2.0/quick/order/rule/ms/place",
+    "cancel_order": "apim/orders/2.0/quick/order/cancel",
+    "modify_order": "apim/orders/2.0/quick/order/vr/modify",
+    "order_history": "apim/orders/2.0/quick/order/history",
+    "order_book": "apim/orders/2.0/quick/user/orders",
+    "trade_report": "apim/orders/2.0/quick/user/trades",
+    "positions": "apim/orders/2.0/quick/user/positions",
+    "holdings": "apim/Portfolio/1.0/portfolio/v1/holdings",
     "margin": "Orders/2.0/quick/user/check-margin",
-    "scrip_master": "Files/1.0/masterscrip/v1/file-paths",
+    "scrip_master": "apim/files/1.0/masterscrip/v1/file-paths",
     "limits": "Orders/2.0/quick/user/limits",
     "logout": "login/1.0/logout"
 }
