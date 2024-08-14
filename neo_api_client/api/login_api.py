@@ -118,6 +118,8 @@ class LoginAPI(object):
             headers=header_params,
             body=body_params
         )
+        if login_resp.status_code != 201:
+            return login_resp.json()
         edit_token_json_resp = json.loads(login_resp.text)
         if 'error' not in edit_token_json_resp:
             self.api_client.configuration.edit_token = edit_token_json_resp.get("data").get("token")

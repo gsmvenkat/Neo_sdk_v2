@@ -13,7 +13,11 @@ class ScripMasterAPI(object):
         header_params = {'Authorization': "Bearer " + self.rest_client.configuration.bearer_token}
 
         try:
-            scrip_report = self.rest_client.request(url=URL, method='GET', headers=header_params).json()["data"]
+            scrip_report = self.rest_client.request(url=URL, method='GET', headers=header_params)
+            if scrip_report.status_code != 200:
+                return scrip_report.json()
+            scrip_report = scrip_report.json()["data"]
+
             if exchange_segment:
                 exchange_segment = settings.exchange_segment[exchange_segment]
                 exchange_segment_csv = [file for file in scrip_report["filesPaths"] if exchange_segment.lower() in file.lower()]

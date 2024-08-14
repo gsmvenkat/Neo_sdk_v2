@@ -23,6 +23,8 @@ class ScripSearch(object):
                 url=URL, method='GET',
                 headers=header_params
             )
+            if scrip_report.status_code != 200:
+                return scrip_report.json()
 
             data = scrip_report.json()["data"]
             if exchange_segment is not None:
