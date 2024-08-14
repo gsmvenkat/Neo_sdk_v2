@@ -27,7 +27,7 @@ class TradeReportAPI(object):
             if order_id:
                 output_json = {}
                 if 'data' in trade_report:
-                    output_json['tid'] = trade_report['tid']
+                    # output_json['tid'] = trade_report['tid']
                     output_json['stat'] = trade_report['stat']
                     output_json['stCode'] = trade_report['stCode']
                     for item in trade_report['data']:
