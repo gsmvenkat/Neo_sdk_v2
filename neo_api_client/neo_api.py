@@ -588,7 +588,7 @@ class NeoAPI:
 
         if not self.NeoWebSocket:
             self.check_callbacks()
-            self.NeoWebSocket = neo_api_client.NeoWebSocket(sid, session_token, server_id)
+            self.NeoWebSocket = neo_api_client.NeoWebSocket(sid, session_token, server_id, data_center=None)
             self.set_neowebsocket_callbacks()
 
         response = self.NeoWebSocket.get_quotes(instrument_tokens=instrument_tokens, quote_type=quote_type, isIndex=isIndex)
@@ -662,7 +662,8 @@ class NeoAPI:
                 self.check_callbacks()
                 self.NeoWebSocket = neo_api_client.NeoWebSocket(self.configuration.edit_sid,
                                                                 self.configuration.edit_token,
-                                                                self.configuration.serverId)
+                                                                self.configuration.serverId,
+                                                                data_center=None)
                 self.set_neowebsocket_callbacks()
             self.NeoWebSocket.get_live_feed(instrument_tokens=instrument_tokens, isIndex=isIndex, isDepth=isDepth)
         else:
@@ -673,7 +674,8 @@ class NeoAPI:
             if not self.NeoWebSocket:
                 self.NeoWebSocket = neo_api_client.NeoWebSocket(self.configuration.edit_sid,
                                                                 self.configuration.edit_token,
-                                                                self.configuration.serverId)
+                                                                self.configuration.serverId,
+                                                                data_center=None)
 
             self.set_neowebsocket_callbacks()
             self.NeoWebSocket.un_subscribe_list(instrument_tokens=instrument_tokens,
