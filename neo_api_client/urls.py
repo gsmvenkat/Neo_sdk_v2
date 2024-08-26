@@ -19,3 +19,6 @@ SESSION_PROD_BASE_URL = "https://mnapi.kotaksecurities.com/"
 #                               ORDER_FEED  URL
 #############################################################################
 ORDER_FEED_URL = "wss://mlhsi.kotaksecurities.com/realtime?sId={server_id}"
+ORDER_FEED_URL_GDC = "wss://mlhsi.kotaksecurities.com/realtime?sId={server_id}"
+ORDER_FEED_URL_GDCD = "wss://mdlhsi.kotaksecurities.com/realtime?sId={server_id}"
+ORDER_FEED_URL_ADC = "wss://clhsi.kotaksecurities.com/realtime?sId={server_id}"
