@@ -8,6 +8,7 @@ WEBSOCKET_URL = "wss://mlhsm.kotaksecurities.com"
 #############################################################################
 UAT_BASE_URL = "https://nsbxapi-gw.kotaksecurities.com/"
 PROD_BASE_URL = "https://mnapi.kotaksecurities.com/"
+PROD_BASE_URL_ADC = "https://cnapi.kotaksecurities.com/"
 
 #############################################################################
 #                               PROD BASE URLs

@@ -21,9 +21,9 @@ UAT_URL = {
 }
 
 PROD_URL = {
-    "view_token": "apim/login/1.0/login/v2/validate",
-    "generate_otp": "apim/login/1.0/login/otp/generate",
-    "edit_token": "apim/login/1.0/login/v2/validate",
+    "view_token": "apim/login/2.0/login/v2/validate",
+    "generate_otp": "apim/login/2.0/login/otp/generate",
+    "edit_token": "apim/login/2.0/login/v2/validate",
     "place_order": "apim/orders/2.0/quick/order/rule/ms/place",
     "cancel_order": "apim/orders/2.0/quick/order/cancel",
     "modify_order": "apim/orders/2.0/quick/order/vr/modify",
@@ -35,7 +35,7 @@ PROD_URL = {
     "margin": "apim/orders/2.0/quick/user/check-margin",
     "scrip_master": "apim/files/1.0/masterscrip/v1/file-paths",
     "limits": "apim/orders/2.0/quick/user/limits",
-    "logout": "apim/login/1.0/logout"
+    "logout": "apim/login/2.0/logout"
 }
 
 exchange_segment_allowed_values = ["NSE", "nse", "BSE", "bse", "NFO", "nfo", "BFO", "bfo", "CDS", "cds", "BCD", "bcd",
