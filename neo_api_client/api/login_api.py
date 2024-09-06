@@ -72,6 +72,7 @@ class LoginAPI(object):
                                                   "number is not of indian number "
             self.api_client.configuration.view_token = view_token_json_resp.get("data").get("token")
             self.api_client.configuration.sid = view_token_json_resp.get("data").get("sid")
+            self.api_client.configuration.data_center = view_token_json_resp.get("data").get("dataCenter")
             return view_token_json_resp
         else:
             view_token_json_resp = json.loads(generate_view_token.text)
