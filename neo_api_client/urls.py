@@ -15,6 +15,7 @@ PROD_BASE_URL_ADC = "https://cnapi.kotaksecurities.com/"
 #############################################################################
 SESSION_UAT_BASE_URL = "https://nsbxapi.kotaksecurities.com/"
 SESSION_PROD_BASE_URL = "https://mnapi.kotaksecurities.com/"
+SESSION_PROD_BASE_URL_ADC = "https://cnapi.kotaksecurities.com/"
 
 #############################################################################
 #                               ORDER_FEED  URL

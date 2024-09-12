@@ -3,6 +3,7 @@ import json
 import requests
 from neo_api_client import rest
 from neo_api_client import req_data_validation
+from neo_api_client.settings import PROD_URL
 
 
 class LoginAPI(object):
@@ -25,6 +26,18 @@ class LoginAPI(object):
         body_params = {
             "grant_type": "client_credentials",
         }
+        from neo_api_client import SESSION_PROD_BASE_URL, SESSION_PROD_BASE_URL_ADC
+        if (
+                not self.api_client.configuration.base_url
+                or self.api_client.configuration.base_url
+                not in (
+                SESSION_PROD_BASE_URL.split("//")[-1].strip("/"),
+                SESSION_PROD_BASE_URL_ADC.split("//")[-1].strip("/"),
+        )
+        ):
+            return {
+                "Message": "Error occurred to initialise the session. Base url missing or incorrect value."
+            }
         URL = self.api_client.configuration.get_domain(session_init=True) + "oauth2/token"
         session_init = self.rest_client.request(
             url=URL, method='POST',
@@ -58,7 +71,8 @@ class LoginAPI(object):
         header_params = {'Authorization': "Bearer " + self.api_client.configuration.bearer_token}
         body_params = req_data_validation.login_params_validation(mobilenumber=mobilenumber, userid=userid, pan=pan, password=password, mpin=mpin)
         self.api_client.configuration.login_params = body_params
-        URL = self.api_client.configuration.get_url_details("view_token")
+        # URL = self.api_client.configuration.get_url_details("view_token")
+        URL = self.api_client.configuration.get_domain(login=True) + PROD_URL.get("view_token")
         generate_view_token = self.rest_client.request(
             url=URL, method='POST',
             headers=header_params,
@@ -99,6 +113,25 @@ class LoginAPI(object):
         return output_fo.text
 
     def login_2fa(self, OTP):
+        from neo_api_client import PROD_BASE_URL, PROD_BASE_URL_ADC
+        if (
+                (
+                        self.api_client.configuration.base_url
+                        == PROD_BASE_URL.split("//")[-1].strip("/")
+                        and self.api_client.configuration.data_center in ("gdc", "gdcd")
+                )
+                or self.api_client.configuration.base_url
+                == PROD_BASE_URL_ADC.split("//")[-1].strip("/")
+                and self.api_client.configuration.data_center in ("adc",)
+        ):
+            pass
+        else:
+            return {
+                "Message": "Your Base_Url does not match with datacenter in 1FA response. If your datacenter is "
+                           "gdc/gdcd then pass base url as mnapi.kotaksecurities.com, if your datacenter is adc then "
+                           "pass base url as cnapi.kotaksecurities.com"
+            }
+
         params = self.api_client.configuration.login_params
         body_params = {}
         if 'mobileNumber' in params and len(str(OTP)) == 6:
