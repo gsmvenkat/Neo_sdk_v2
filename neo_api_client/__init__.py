@@ -25,7 +25,8 @@ from .settings import stock_key_mapping
 from neo_api_client.NeoWebSocket import NeoWebSocket
 from neo_api_client.HSWebSocketLib import HSWebSocket
 from neo_api_client.HSWebSocketLib import HSIWebSocket
-from neo_api_client.urls import WEBSOCKET_URL, PROD_BASE_URL, SESSION_PROD_BASE_URL, SESSION_UAT_BASE_URL, UAT_BASE_URL
+from neo_api_client.urls import (WEBSOCKET_URL, PROD_BASE_URL, SESSION_PROD_BASE_URL, SESSION_UAT_BASE_URL, UAT_BASE_URL,
+                                 SESSION_PROD_BASE_URL_ADC, PROD_BASE_URL_ADC)
 from neo_api_client.neo_api import NeoAPI
 from neo_api_client.api.modify_order_api import ModifyOrder
 from neo_api_client.api.scrip_search import ScripSearch

@@ -7,7 +7,7 @@ import base64
 import jwt
 from neo_api_client.exceptions import ApiValueError
 from neo_api_client.urls import SESSION_UAT_BASE_URL, SESSION_PROD_BASE_URL, UAT_BASE_URL, PROD_BASE_URL, \
-    PROD_BASE_URL_ADC
+    PROD_BASE_URL_ADC, SESSION_PROD_BASE_URL_ADC
 from neo_api_client.settings import UAT_URL, PROD_URL
 
 
@@ -16,7 +16,15 @@ class NeoUtility:
         Project configuration (or) Params to be passed here
     """
 
-    def __init__(self, consumer_key=None, consumer_secret=None, host=None, access_token=None, neo_fin_key=None):
+    def __init__(
+            self,
+            consumer_key=None,
+            consumer_secret=None,
+            host=None,
+            access_token=None,
+            neo_fin_key=None,
+            base_url=None
+    ):
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.host = host
@@ -32,6 +40,7 @@ class NeoUtility:
         self.login_params = None
         self.neo_fin_key = neo_fin_key
         self.data_center = None
+        self.base_url = base_url
 
     def convert_base64(self):
         """The Base64 Token Generation.
@@ -53,12 +62,24 @@ class NeoUtility:
         self.userId = userid
         return userid
 
-    def get_domain(self, session_init=False):
+    def get_domain(self, session_init=False, login=False):
         host_list = ["prod", "uat"]
         if self.host.lower().strip() in host_list:
             if session_init:
                 if self.host.lower().strip() == 'prod':
-                    base_url = SESSION_PROD_BASE_URL
+                    if self.base_url == SESSION_PROD_BASE_URL.split("//")[-1].strip("/"):
+                        base_url = SESSION_PROD_BASE_URL
+                    elif self.base_url == SESSION_PROD_BASE_URL_ADC.split("//")[-1].strip("/"):
+                        base_url = SESSION_PROD_BASE_URL_ADC
+
+                else:
+                    base_url = SESSION_UAT_BASE_URL
+            elif login:
+                if self.host.lower().strip() == 'prod':
+                    if self.base_url == PROD_BASE_URL.split("//")[-1].strip("/"):
+                        base_url = PROD_BASE_URL
+                    elif self.base_url == PROD_BASE_URL_ADC.split("//")[-1].strip("/"):
+                        base_url = PROD_BASE_URL_ADC
                 else:
                     base_url = SESSION_UAT_BASE_URL
             else:

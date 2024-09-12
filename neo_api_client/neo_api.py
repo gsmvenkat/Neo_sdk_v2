@@ -37,7 +37,8 @@ class NeoAPI:
                 Sets the edit token, SID, RID, and server ID in the configuration.
     """
 
-    def __init__(self, environment="uat", access_token=None, consumer_key=None, consumer_secret=None, neo_fin_key=None):
+    def __init__(self, environment="uat", access_token=None, consumer_key=None, consumer_secret=None,
+                 neo_fin_key=None, base_url=None):
         """
     Initializes the class and sets up the necessary configurations for the API client.
 
@@ -66,7 +67,7 @@ class NeoAPI:
         if not access_token:
             neo_api_client.req_data_validation.validate_configuration(consumer_key, consumer_secret)
             self.configuration = neo_api_client.NeoUtility(consumer_key=consumer_key, consumer_secret=consumer_secret,
-                                                           host=environment)
+                                                           host=environment, base_url=base_url)
             self.api_client = ApiClient(self.configuration)
             try:
                 session_init = neo_api_client.LoginAPI(self.api_client).session_init()
