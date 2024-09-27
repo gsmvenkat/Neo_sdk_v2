@@ -750,3 +750,41 @@ class NeoAPI:
                                             
         else:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
+
+    def totp_verify_user(self, mobilenumber=None, ucc=None):
+        if not mobilenumber or not ucc:
+            error = {
+                'error': [{'code': '10300', 'message': 'Validation Errors! Any of Mobile Number or UCC is '
+                                                       'missing for the user verification'}]}
+            return error
+
+        totp_verify_user_resp = neo_api_client.TotpAPI(self.api_client).totp_verify_user(mobile_number=mobilenumber, ucc=ucc)
+        return totp_verify_user_resp
+
+    def totp_registration(self, totp=None):
+        if not totp:
+            error = {
+                'error': [{'code': '10300', 'message': 'Validation Errors! TOTP missing for the TOTP registration'}]}
+            return error
+
+        totp_register_response = neo_api_client.TotpAPI(self.api_client).totp_registration(totp=totp)
+        return totp_register_response
+
+    def totp_login(self, mobilenumber=None, ucc=None, totp=None):
+        if not mobilenumber or not ucc or not totp:
+            error = {
+                'error': [{'code': '10300', 'message': 'Any of Mobile Number, UCC or totp is missing'}]}
+            return error
+
+        totp_login = neo_api_client.TotpAPI(self.api_client).totp_login(mobile_number=mobilenumber, ucc=ucc, totp=totp)
+        return totp_login
+
+    def totp_validate(self, mpin=None):
+        if not mpin:
+            error = {
+                'error': [{'code': '10300', 'message': 'Mpin is missing'}]}
+            return error
+
+        totp_validate = neo_api_client.TotpAPI(self.api_client).totp_validate(mpin=mpin)
+        return totp_validate
+
