@@ -17,7 +17,8 @@ UAT_URL = {
     "margin": "orderapi/1.0/quick/user/check-margin",
     "scrip_master": "scrip/1.0/masterscrip/file-paths",
     "limits": "orderapi/1.0/quick/user/limits",
-    "logout": "api/1.0/logout"
+    "logout": "api/1.0/logout",
+    "base_url": "algo-user/v5/get-base-url"
 }
 
 PROD_URL = {
@@ -35,7 +36,8 @@ PROD_URL = {
     "margin": "apim/orders/2.0/quick/user/check-margin",
     "scrip_master": "apim/files/2.0/masterscrip/v1/file-paths",
     "limits": "apim/orders/2.0/quick/user/limits",
-    "logout": "apim/login/2.0/logout"
+    "logout": "apim/login/2.0/logout",
+    "base_url": "algo-user/v5/get-base-url"
 }
 
 exchange_segment_allowed_values = ["NSE", "nse", "BSE", "bse", "NFO", "nfo", "BFO", "bfo", "CDS", "cds", "BCD", "bcd",
