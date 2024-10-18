@@ -19,7 +19,10 @@ class BaseUrl:
 
         URL += '?' + urlencode(query_params)
         base_url = requests.get(url=URL, headers=headers)
-        base_url = base_url.json().get('data').get('baseURL') + '/'
-        print(base_url)
+        if 200 <= base_url.status_code <= 299:
+            base_url = base_url.json().get('data').get('baseURL') + '/'
+            print(base_url)
+        else:
+            print(base_url.json())
         return base_url
 
