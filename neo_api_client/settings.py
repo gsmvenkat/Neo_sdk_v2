@@ -18,7 +18,9 @@ UAT_URL = {
     "scrip_master": "scrip/1.0/masterscrip/file-paths",
     "limits": "orderapi/1.0/quick/user/limits",
     "logout": "api/1.0/logout",
-    "base_url": "algo-user/v5/get-base-url"
+    "base_url": "algo-user/v5/get-base-url",
+    "qr_code_get_link": "login/1.0/algo-user/v5/login/authorization/dialog",
+    "qr_code_generate_session": "login/1.0/algo-user/v5/login/generate-session-token"
 }
 
 PROD_URL = {
@@ -37,7 +39,9 @@ PROD_URL = {
     "scrip_master": "apim/files/2.0/masterscrip/v1/file-paths",
     "limits": "apim/orders/2.0/quick/user/limits",
     "logout": "apim/login/2.0/logout",
-    "base_url": "algo-user/v5/get-base-url"
+    "base_url": "algo-user/v5/get-base-url",
+    "qr_code_get_link": "login/1.0/algo-user/v5/login/authorization/dialog",
+    "qr_code_generate_session": "login/1.0/algo-user/v5/login/generate-session-token"
 }
 
 exchange_segment_allowed_values = ["NSE", "nse", "BSE", "bse", "NFO", "nfo", "BFO", "bfo", "CDS", "cds", "BCD", "bcd",

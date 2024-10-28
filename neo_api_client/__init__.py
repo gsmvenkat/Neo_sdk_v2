@@ -31,3 +31,4 @@ from neo_api_client.neo_api import NeoAPI
 from neo_api_client.base_url import BaseUrl
 from neo_api_client.api.modify_order_api import ModifyOrder
 from neo_api_client.api.scrip_search import ScripSearch
+from neo_api_client.api.qr_code_api import QrCodeAPI
