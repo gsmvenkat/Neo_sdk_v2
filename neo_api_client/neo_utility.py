@@ -63,37 +63,55 @@ class NeoUtility:
         self.userId = userid
         return userid
 
-    def get_domain(self, session_init=False, login=False):
+    def get_domain(self, session_init=False):
         host_list = ["prod", "uat"]
         if self.host.lower().strip() in host_list:
             if session_init:
                 if self.host.lower().strip() == 'prod':
-                    if self.base_url == SESSION_PROD_BASE_URL.split("//")[-1].strip("/"):
-                        base_url = SESSION_PROD_BASE_URL
-                    elif self.base_url == SESSION_PROD_BASE_URL_ADC.split("//")[-1].strip("/"):
-                        base_url = SESSION_PROD_BASE_URL_ADC
-
-                else:
-                    base_url = SESSION_UAT_BASE_URL
-            elif login:
-                if self.host.lower().strip() == 'prod':
-                    if self.base_url == PROD_BASE_URL.split("//")[-1].strip("/"):
-                        base_url = PROD_BASE_URL
-                    elif self.base_url == PROD_BASE_URL_ADC.split("//")[-1].strip("/"):
-                        base_url = PROD_BASE_URL_ADC
+                    base_url = self.base_url
                 else:
                     base_url = SESSION_UAT_BASE_URL
             else:
                 if self.host.lower().strip() == 'prod':
-                    base_url = PROD_BASE_URL
-                    if self.data_center == 'adc':
-                        base_url = PROD_BASE_URL_ADC
+                    base_url = self.base_url
                 else:
                     base_url = UAT_BASE_URL
 
             return base_url
         else:
             raise ApiValueError("Either UAT or PROD in Environment accepted")
+
+    # def get_domain(self, session_init=False, login=False):
+    #     host_list = ["prod", "uat"]
+    #     if self.host.lower().strip() in host_list:
+    #         if session_init:
+    #             if self.host.lower().strip() == 'prod':
+    #                 if self.base_url == SESSION_PROD_BASE_URL.split("//")[-1].strip("/"):
+    #                     base_url = SESSION_PROD_BASE_URL
+    #                 elif self.base_url == SESSION_PROD_BASE_URL_ADC.split("//")[-1].strip("/"):
+    #                     base_url = SESSION_PROD_BASE_URL_ADC
+    #
+    #             else:
+    #                 base_url = SESSION_UAT_BASE_URL
+    #         elif login:
+    #             if self.host.lower().strip() == 'prod':
+    #                 if self.base_url == PROD_BASE_URL.split("//")[-1].strip("/"):
+    #                     base_url = PROD_BASE_URL
+    #                 elif self.base_url == PROD_BASE_URL_ADC.split("//")[-1].strip("/"):
+    #                     base_url = PROD_BASE_URL_ADC
+    #             else:
+    #                 base_url = SESSION_UAT_BASE_URL
+    #         else:
+    #             if self.host.lower().strip() == 'prod':
+    #                 base_url = PROD_BASE_URL
+    #                 if self.data_center == 'adc':
+    #                     base_url = PROD_BASE_URL_ADC
+    #             else:
+    #                 base_url = UAT_BASE_URL
+    #
+    #         return base_url
+    #     else:
+    #         raise ApiValueError("Either UAT or PROD in Environment accepted")
 
     def get_url_details(self, api_info):
         domain_info = self.get_domain()

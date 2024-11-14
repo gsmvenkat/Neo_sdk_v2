@@ -18,6 +18,7 @@ UAT_URL = {
     "scrip_master": "scrip/1.0/masterscrip/file-paths",
     "limits": "orderapi/1.0/quick/user/limits",
     "logout": "api/1.0/logout",
+    "base_url": "algo-user/v5/get-base-url",
     "totp_verify_user": "api/1.0/login/v6/totp/verify-user",
     "totp_registration": "api/1.0/login/v6/totp/register",
     "totp_login": "api/1.0/login/v6/totp/login",
@@ -40,10 +41,13 @@ PROD_URL = {
     "scrip_master": "apim/files/2.0/masterscrip/v1/file-paths",
     "limits": "apim/orders/2.0/quick/user/limits",
     "logout": "apim/login/2.0/logout",
-    "totp_verify_user": "api/1.0/login/v6/totp/verify-user",
-    "totp_registration": "api/1.0/login/v6/totp/register",
-    "totp_login": "api/1.0/login/v6/totp/login",
-    "totp_validate": "api/1.0/login/v6/totp/validate"
+    "base_url": "algo-user/v5/get-base-url",
+    "totp_verify_user": "apim/login/2.0/login/v6/totp/verify-user",
+    "totp_registration": "apim/login/2.0/login/v6/totp/register",
+    "totp_login": "apim/login/2.0/login/v6/totp/login",
+    "totp_validate": "apim/login/2.0/login/v6/totp/validate",
+    "totp_de_register": "apim/login/2.0/login/v6/totp/deregister"
+
 }
 
 exchange_segment_allowed_values = ["NSE", "nse", "BSE", "bse", "NFO", "nfo", "BFO", "bfo", "CDS", "cds", "BCD", "bcd",

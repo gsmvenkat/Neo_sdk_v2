@@ -788,3 +788,12 @@ class NeoAPI:
         totp_validate = neo_api_client.TotpAPI(self.api_client).totp_validate(mpin=mpin)
         return totp_validate
 
+    def totp_de_register(self, mpin=None):
+        if not mpin:
+            error = {
+                'error': [{'code': '10300', 'message': 'Validation Errors! Mpin missing for the TOTP de-registration'}]}
+            return error
+
+        totp_de_register_response = neo_api_client.TotpAPI(self.api_client).totp_de_register(mpin=mpin)
+        return totp_de_register_response
+

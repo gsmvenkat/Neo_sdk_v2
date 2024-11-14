@@ -31,8 +31,8 @@ class LoginAPI(object):
                 not self.api_client.configuration.base_url
                 or self.api_client.configuration.base_url
                 not in (
-                SESSION_PROD_BASE_URL.split("//")[-1].strip("/"),
-                SESSION_PROD_BASE_URL_ADC.split("//")[-1].strip("/"),
+                SESSION_PROD_BASE_URL,
+                SESSION_PROD_BASE_URL_ADC,
         )
         ):
             return {
@@ -72,7 +72,7 @@ class LoginAPI(object):
         body_params = req_data_validation.login_params_validation(mobilenumber=mobilenumber, userid=userid, pan=pan, password=password, mpin=mpin)
         self.api_client.configuration.login_params = body_params
         # URL = self.api_client.configuration.get_url_details("view_token")
-        URL = self.api_client.configuration.get_domain(login=True) + PROD_URL.get("view_token")
+        URL = self.api_client.configuration.get_domain() + PROD_URL.get("view_token")
         generate_view_token = self.rest_client.request(
             url=URL, method='POST',
             headers=header_params,
@@ -114,14 +114,31 @@ class LoginAPI(object):
 
     def login_2fa(self, OTP):
         from neo_api_client import PROD_BASE_URL, PROD_BASE_URL_ADC
+        # if (
+        #         (
+        #                 self.api_client.configuration.base_url
+        #                 == PROD_BASE_URL.split("//")[-1].strip("/")
+        #                 and self.api_client.configuration.data_center in ("gdc", "gdcd")
+        #         )
+        #         or self.api_client.configuration.base_url
+        #         == PROD_BASE_URL_ADC.split("//")[-1].strip("/")
+        #         and self.api_client.configuration.data_center in ("adc",)
+        # ):
+        #     pass
+        # else:
+        #     return {
+        #         "Message": "Your Base_Url does not match with datacenter in 1FA response. If your datacenter is "
+        #                    "gdc/gdcd then pass base url as mnapi.kotaksecurities.com, if your datacenter is adc then "
+        #                    "pass base url as cnapi.kotaksecurities.com"
+        #     }
         if (
                 (
                         self.api_client.configuration.base_url
-                        == PROD_BASE_URL.split("//")[-1].strip("/")
+                        == PROD_BASE_URL
                         and self.api_client.configuration.data_center in ("gdc", "gdcd")
                 )
                 or self.api_client.configuration.base_url
-                == PROD_BASE_URL_ADC.split("//")[-1].strip("/")
+                == PROD_BASE_URL_ADC
                 and self.api_client.configuration.data_center in ("adc",)
         ):
             pass

@@ -24,3 +24,8 @@ ORDER_FEED_URL = "wss://mlhsi.kotaksecurities.com/realtime?sId={server_id}"
 ORDER_FEED_URL_GDC = "wss://mlhsi.kotaksecurities.com/realtime?sId={server_id}"
 ORDER_FEED_URL_GDCD = "wss://mdlhsi.kotaksecurities.com/realtime?sId={server_id}"
 ORDER_FEED_URL_ADC = "wss://clhsi.kotaksecurities.com/realtime?sId={server_id}"
+
+#############################################################################
+#                               BASE_URL  URL
+#############################################################################
+BASE_URL = "https://lapi.kotaksecurities.com/algo-user/v5/get-base-url"
