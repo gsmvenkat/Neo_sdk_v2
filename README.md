@@ -47,6 +47,11 @@ Please follow the [installation procedure](#installation--usage) and then refer 
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
+
+
+base_url = BaseUrl(ucc='').get_base_url()
+
 def on_message(message):
     print(message)
     
@@ -62,8 +67,7 @@ def on_open(message):
 #on_message, on_open, on_close and on_error is a call back function we will provide the response for the subscribe method.
 # access_token is an optional one. If you have barrier token then pass and consumer_key and consumer_secret will be optional.
 # environment by default uat you can pass prod to connect to live server
-client = NeoAPI(consumer_key="", consumer_secret="", environment='uat',
-                access_token=None, neo_fin_key=None)
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
 
 # Initiate login by passing any of the combinations mobilenumber & password (or) pan & password (or) userid & password
 # Also this will generate the OTP to complete 2FA
@@ -72,6 +76,24 @@ client.login(mobilenumber="+919999999999", password="XXXX")
 # Complete login and generate session token
 client.session_2fa(OTP="")
 
+
+
+# TOTP Login
+
+# totp_verify_user returns a base64 encoded qrcode image. Scanning the qrcode with google authenticator application and you'll recieve the TOTP
+# qr code is valid only for 2 minutes
+client.totp_verify_user(mobilenumber="", ucc="")
+# pass the totp from the above step to register it
+client.totp_registration(totp='')
+# totp_login generates the view token and session id used to generate trade token
+client.totp_login(mobilenumber="", ucc="", totp='')
+# totp_validate generates the trade token
+client.totp_validate(mpin="")
+#totp_de_register is used to de register the current token
+client.totp_de_register(mpin='')
+
+
+
 # Setup Callbacks for websocket events (Optional)
 client.on_message = on_message  # called when message is received from websocket
 client.on_error = on_error  # called when any error or exception occurs in code or websocket
@@ -79,12 +101,12 @@ client.on_close = on_close  # called when websocket connection is closed
 client.on_open = on_open  # called when websocket successfully connects
 
 # Once 2FA has you can place the order by using below function
-client.place_order(exchange_segment='', product='', price='', order_type='', quantity=12, validity='', trading_symbol='',
-                    transaction_type='', amo="NO", disclosed_quantity="0", market_protection="0", pf="N",
-                    trigger_price="0", tag=None)
+client.place_order(exchange_segment='', product='', price='', order_type='', quantity='', validity='', trading_symbol='', 
+                   transaction_type='', amo='NO', disclosed_quantity='0', market_protection='0', pf='N', 
+                   trigger_price='0', tag=None)
 						
 # Modify an order
-client.modify_order(order_id = "", price = 0, quantity = 1, disclosed_quantity = 0, trigger_price = 0, validity = "GFD")
+client.modify_order(order_id = "", price = "7.0", quantity = "2", disclosed_quantity = "0", trigger_price = "0", validity = "DAY", order_type='')
 
 # Cancel an order
 client.cancel_order(order_id = "")
@@ -139,6 +161,7 @@ instrument_tokens = [{"instrument_token": "", "exchange_segment": ""},
 client.quotes(instrument_tokens = instrument_tokens, quote_type="", isIndex=False, 
               session_token="", sid="",server_id="")
 
+
 # Subscribe method will get you the live feed details of the given tokens.
 # By Default isIndex is set as False and you want to get the live feed to index scrips set the isIndex flag as True 
 # By Default isDepth is set as False and you want to get the depth information set the isDepth flag as True
@@ -152,10 +175,13 @@ client.subscribe_to_orderfeed()
 #Terminate user's Session
 client.logout()
 ```
+
+
 ## Documentation for API Endpoints
 
 | Class             | Method                                                                        | Description        |
 |-------------------|-------------------------------------------------------------------------------|--------------------|
+| *Base Url*        | [**neo_api_client.BaseUrl**](docs/Base_url#base_url)                       | Base Url           |
 | *LoginAPI*        | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)           | Initialise Session |
 | *LoginAPI*        | [**neo_api_client.NeoAPI**](docs/Login.md#login)                              | Login NeoAPI       |
 | *LoginAPI*        | [**neo_api_client.2FA**](docs/session_2fa.md#2fa)                             | Session 2FA        |
@@ -171,5 +197,5 @@ client.logout()
 | *Scrip Master*    | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)          | Scrip Master       |
 | *Search Scrip*    | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)          | Scrip Search       |
 | *Quotes*          | [**neo_api_client.quotes**](docs/Quotes.md#quotes)                            | Quotes             |
-| *Subscribe*       | [**neo_api_client.subscribe**](docs/webSocket.md#subscribe)                      | Subscribe          |
+| *Subscribe*       | [**neo_api_client.subscribe**](docs/webSocket.md#subscribe)                   | Subscribe          |
 
