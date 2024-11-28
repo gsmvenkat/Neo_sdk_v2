@@ -90,13 +90,10 @@ class TotpAPI(object):
                          "Auth": self.api_client.configuration.view_token,
                          'neo-fin-key': self.api_client.configuration.get_neo_fin_key()
                          }
-        print(11111)
         URL = self.api_client.configuration.get_url_details("totp_validate")
-        print(22222, URL)
         body_params = {
             "mpin": mpin
         }
-        print(33333)
         totp_validate = self.rest_client.request(
             url=URL, method='POST',
             headers=header_params,
@@ -118,23 +115,18 @@ class TotpAPI(object):
         return totp_validate_data
 
     def totp_de_register(self, mpin=None):
-        print(11111, self.api_client.configuration.view_token)
         header_params = {'Authorization': "Bearer " + self.api_client.configuration.bearer_token,
                          "sid": self.api_client.configuration.edit_sid, "Auth": self.api_client.configuration.edit_token}
         URL = self.api_client.configuration.get_url_details("totp_de_register")
-        print(22222, URL)
         body_params = {
             # "sessionID": self.api_client.configuration.totp_session_id,
             "mpin": mpin
         }
-        print(33333, header_params)
-        print(44444, body_params)
         totp_de_register = self.rest_client.request(
             url=URL, method='POST',
             headers=header_params,
             body=body_params
         )
-        print(55555, totp_de_register)
         try:
             totp_de_register = totp_de_register.json()
         except JSONDecodeError:
