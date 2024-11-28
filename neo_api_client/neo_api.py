@@ -759,6 +759,7 @@ class NeoAPI:
             return error
 
         totp_verify_user_resp = neo_api_client.TotpAPI(self.api_client).totp_verify_user(mobile_number=mobilenumber, ucc=ucc)
+        print(totp_verify_user_resp)
         return totp_verify_user_resp
 
     def totp_registration(self, totp=None):
