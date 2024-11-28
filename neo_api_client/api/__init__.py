@@ -13,3 +13,4 @@ from neo_api_client.api.margin_api import MarginAPI
 from neo_api_client.api.scrip_master_api import ScripMasterAPI
 from neo_api_client.api.limits_api import LimitsAPI
 from neo_api_client.api.logout_api import LogoutAPI
+from neo_api_client.api.totp_api import TotpAPI
