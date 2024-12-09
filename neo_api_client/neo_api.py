@@ -754,7 +754,7 @@ class NeoAPI:
     def totp_verify_user(self, mobilenumber=None, ucc=None):
         if not mobilenumber or not ucc:
             error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Any of Mobile Number or UCC is '
+                'error': [{'message': 'Validation Errors! Any of Mobile Number or UCC is '
                                                        'missing for the user verification'}]}
             return error
 
@@ -764,7 +764,7 @@ class NeoAPI:
     def totp_registration(self, totp=None):
         if not totp:
             error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! TOTP missing for the TOTP registration'}]}
+                'error': [{'message': 'Validation Errors! TOTP missing for the TOTP registration'}]}
             return error
 
         totp_register_response = neo_api_client.TotpAPI(self.api_client).totp_registration(totp=totp)
@@ -773,7 +773,7 @@ class NeoAPI:
     def totp_login(self, mobilenumber=None, ucc=None, totp=None):
         if not mobilenumber or not ucc or not totp:
             error = {
-                'error': [{'code': '10300', 'message': 'Any of Mobile Number, UCC or totp is missing'}]}
+                'error': [{'message': 'Any of Mobile Number, UCC or totp is missing'}]}
             return error
 
         totp_login = neo_api_client.TotpAPI(self.api_client).totp_login(mobile_number=mobilenumber, ucc=ucc, totp=totp)
@@ -782,7 +782,7 @@ class NeoAPI:
     def totp_validate(self, mpin=None):
         if not mpin:
             error = {
-                'error': [{'code': '10300', 'message': 'Mpin is missing'}]}
+                'error': [{'message': 'Mpin is missing'}]}
             return error
 
         totp_validate = neo_api_client.TotpAPI(self.api_client).totp_validate(mpin=mpin)
@@ -791,9 +791,16 @@ class NeoAPI:
     def totp_de_register(self, mpin=None):
         if not mpin:
             error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Mpin missing for the TOTP de-registration'}]}
+                'error': [{'message': 'Validation Errors! Mpin missing for the TOTP de-registration'}]}
             return error
 
         totp_de_register_response = neo_api_client.TotpAPI(self.api_client).totp_de_register(mpin=mpin)
         return totp_de_register_response
 
+    def quotes_neo_symbol(self, neo_symbol=None, quote_type=None):
+        if not neo_symbol:
+            error = {
+                'error': [{'message': 'Validation Errors! neo_symbol is missing'}]}
+            return error
+        quotes_neo_symbol_response = neo_api_client.QuotesAPI(self.api_client).get_quotes_neo_symbol(neo_symbol=neo_symbol, quote_type=quote_type)
+        return quotes_neo_symbol_response

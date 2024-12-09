@@ -22,7 +22,9 @@ UAT_URL = {
     "totp_verify_user": "api/1.0/login/v6/totp/verify-user",
     "totp_registration": "api/1.0/login/v6/totp/register",
     "totp_login": "api/1.0/login/v6/totp/login",
-    "totp_validate": "api/1.0/login/v6/totp/validate"
+    "totp_validate": "api/1.0/login/v6/totp/validate",
+    "totp_de_register": "apim/login/2.0/login/v6/totp/deregister",
+    "quotes_neo_symbol": "apim/quotes/2.0/quotes/neosymbol/{neo_symbols}/{quote_type}"
 }
 
 PROD_URL = {
@@ -46,7 +48,8 @@ PROD_URL = {
     "totp_registration": "apim/login/2.0/login/v6/totp/register",
     "totp_login": "apim/login/2.0/login/v6/totp/login",
     "totp_validate": "apim/login/2.0/login/v6/totp/validate",
-    "totp_de_register": "apim/login/2.0/login/v6/totp/deregister"
+    "totp_de_register": "apim/login/2.0/login/v6/totp/deregister",
+    "quotes_neo_symbol": "apim/quotes/2.0/quotes/neosymbol/{neo_symbols}/{quote_type}"
 
 }
 
