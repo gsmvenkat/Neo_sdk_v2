@@ -19,6 +19,12 @@ UAT_URL = {
     "limits": "orderapi/1.0/quick/user/limits",
     "logout": "api/1.0/logout",
     "base_url": "algo-user/v5/get-base-url",
+    "totp_verify_user": "api/1.0/login/v6/totp/verify-user",
+    "totp_registration": "api/1.0/login/v6/totp/register",
+    "totp_login": "api/1.0/login/v6/totp/login",
+    "totp_validate": "api/1.0/login/v6/totp/validate",
+    "totp_de_register": "apim/login/2.0/login/v6/totp/deregister",
+    "quotes_neo_symbol": "apim/quotes/2.0/quotes/neosymbol/{neo_symbols}/{quote_type}",
     "qr_code_get_link": "login/1.0/algo-user/v5/login/authorization/dialog",
     "qr_code_generate_session": "login/1.0/algo-user/v5/login/generate-session-token"
 }
@@ -40,6 +46,12 @@ PROD_URL = {
     "limits": "apim/orders/2.0/quick/user/limits",
     "logout": "apim/login/2.0/logout",
     "base_url": "algo-user/v5/get-base-url",
+    "totp_verify_user": "apim/login/2.0/login/v6/totp/verify-user",
+    "totp_registration": "apim/login/2.0/login/v6/totp/register",
+    "totp_login": "apim/login/2.0/login/v6/totp/login",
+    "totp_validate": "apim/login/2.0/login/v6/totp/validate",
+    "totp_de_register": "apim/login/2.0/login/v6/totp/deregister",
+    "quotes_neo_symbol": "apim/quotes/2.0/quotes/neosymbol/{neo_symbols}/{quote_type}",
     "qr_code_get_link": "login/1.0/algo-user/v5/login/authorization/dialog",
     "qr_code_generate_session": "login/1.0/algo-user/v5/login/generate-session-token"
 }

@@ -41,6 +41,7 @@ class NeoUtility:
         self.neo_fin_key = neo_fin_key
         self.data_center = None
         self.base_url = base_url
+        self.totp_session_id = None
 
     def convert_base64(self):
         """The Base64 Token Generation.
