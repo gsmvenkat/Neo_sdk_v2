@@ -1,4 +1,4 @@
-# **Base_Url**
+# **Base_url**
 Initiate trading session for a User
 
 ```python

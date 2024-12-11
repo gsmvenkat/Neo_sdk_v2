@@ -1,28 +1,27 @@
-# **Scrip_Master**
-Get ScripMaster CSV file
+# **Neosymbol_quotes**
+Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details` <br/>
+
+By default, `quote_type` is set as `all`, which means you will get the complete data.<br/>
+
+Quotes API can be accessed without completing login by passing `session_token`, `sid`, and `server_id`.
 
 ```python
-client.scrip_master()
+client.quotes_neo_symbol(neo_symbol = neo_symbol, quote_type = "")
 ```
-
-To get ScripMaster file of a particular segment, pass the exchange segment within bracket. For example - `client.scripmaster(nse_cm)`
-
 ### Example
 
 ```python
 
 from neo_api_client import NeoAPI
 
-#First initialize session and generate session token
+#Only need to initialize session and generate session token
 
 client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment=" ")
-client.login(mobilenumber=" ", password=" ")
-client.session_2fa("")
 
 try:
-    client.scrip_master()
+    client.quotes_neo_symbol(neo_symbol = neo_symbol, quote_type = "all")
 except Exception as e:
-    print("Exception when calling Scrip Master Api->scrip_master: %s\n" % e)
+    print("Exception when calling Neo Symbol Quotes Api->quotes_neo_symbol: %s\n" % e)
 ```
 
 ### Return type

@@ -94,6 +94,14 @@ client.totp_de_register(mpin='')
 
 
 
+# QR Code Login
+# qr_code_get_link returns a qrcode
+client.qr_code_get_link(ucc='')
+# trade token is returned on passing ott to qr_code_generate_session 
+client.qr_code_generate_session(ott='', ucc='')
+
+
+
 # Setup Callbacks for websocket events (Optional)
 client.on_message = on_message  # called when message is received from websocket
 client.on_error = on_error  # called when any error or exception occurs in code or websocket
@@ -149,6 +157,18 @@ client.scrip_master(exchange_segment = "")
 client.search_scrip(exchange_segment="cde_fo", symbol="", expiry="", option_type="",
                     strike_price="")
 
+# Get quote details
+neo_symbol = [
+    {"instrument_token": "", "exchange_segment": ""},
+    {"instrument_token": "", "exchange_segment": ""},
+    {"instrument_token": "", "exchange_segment": ""}
+]
+# Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details` <br/>
+# By default, `quote_type` is set as `all`, which means you will get the complete data.<br/>
+# Quotes API can be accessed without completing login by passing `session_token`, `sid`, and `server_id`.
+client.quotes_neo_symbol(neo_symbol = neo_symbol, quote_type = "")
+
+
 # Get Quote details. 
 instrument_tokens = [{"instrument_token": "", "exchange_segment": ""},
     {"instrument_token": "", "exchange_segment": ""},
@@ -171,7 +191,8 @@ client.subscribe(instrument_tokens = instrument_tokens, isIndex=False, isDepth=F
 client.un_subscribe(instrument_tokens=instrument_tokens, isIndex=False, isDepth=False)
 
 #Order Feed 
-client.subscribe_to_orderfeed()
+#data_center is a mandatory option to pass
+client.subscribe_to_orderfeed(data_center="")
 #Terminate user's Session
 client.logout()
 ```
@@ -179,23 +200,24 @@ client.logout()
 
 ## Documentation for API Endpoints
 
-| Class             | Method                                                                        | Description        |
-|-------------------|-------------------------------------------------------------------------------|--------------------|
-| *Base Url*        | [**neo_api_client.BaseUrl**](docs/Base_url#base_url)                       | Base Url           |
-| *LoginAPI*        | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)           | Initialise Session |
-| *LoginAPI*        | [**neo_api_client.NeoAPI**](docs/Login.md#login)                              | Login NeoAPI       |
-| *LoginAPI*        | [**neo_api_client.2FA**](docs/session_2fa.md#2fa)                             | Session 2FA        |
-| *Place Order*     | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)              | Place Order        |
-| *Modify Order*    | [**neo_api_client.modifyorder**](docs/Modify_Order.md#modify_order)           | Modify Order       |
-| *Cancel Order*    | [**neo_api_client.cancelorder**](docs/Cancel_Order.md#cancel_order)           | Cancel Order       |
-| *Order Report*    | [**neo_api_client.orderreport**](docs/Order_report.md#order_report)           | Order Report       |
-| *Trade Report*    | [**neo_api_client.tradereport**](docs/Trade_report.md#trade_report)           | Trade Report       |
-| *Positions*       | [**neo_api_client.positions**](docs/Positions.md#positions)                   | Positions          |
-| *Holdings*        | [**neo_api_client.holdings**](docs/Holdings.md#holdings)                      | Holdings           |
-| *Limits*          | [**neo_api_client.limits**](docs/Limits.md#limits)                            | Limits             |
-| *Margin Required* | [**neo_api_client.margin_required**](docs/Margin_Required.md#margin_required) | Margin Required    |
-| *Scrip Master*    | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)          | Scrip Master       |
-| *Search Scrip*    | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)          | Scrip Search       |
-| *Quotes*          | [**neo_api_client.quotes**](docs/Quotes.md#quotes)                            | Quotes             |
-| *Subscribe*       | [**neo_api_client.subscribe**](docs/webSocket.md#subscribe)                   | Subscribe          |
+| Class               | Method                                                                                | Description        |
+|---------------------|---------------------------------------------------------------------------------------|--------------------|
+| *Base Url*          | [**neo_api_client.BaseUrl**](docs/Base_url.md#base_url)                               | Base Url           |
+| *LoginAPI*          | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)                   | Initialise Session |
+| *LoginAPI*          | [**neo_api_client.NeoAPI**](docs/Login.md#login)                                      | Login NeoAPI       |
+| *LoginAPI*          | [**neo_api_client.2FA**](docs/session_2fa.md#session_2fa)                             | Session 2FA        |
+| *Place Order*       | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)                      | Place Order        |
+| *Modify Order*      | [**neo_api_client.modifyorder**](docs/Modify_Order.md#modify_order)                   | Modify Order       |
+| *Cancel Order*      | [**neo_api_client.cancelorder**](docs/Cancel_Order.md#cancel_order)                   | Cancel Order       |
+| *Order Report*      | [**neo_api_client.orderreport**](docs/Order_report.md#order_report_and_order_history) | Order Report       |
+| *Trade Report*      | [**neo_api_client.tradereport**](docs/Trade_report.md#trade_report)                   | Trade Report       |
+| *Positions*         | [**neo_api_client.positions**](docs/Positions.md#positions)                           | Positions          |
+| *Holdings*          | [**neo_api_client.holdings**](docs/Holdings.md#holdings)                              | Holdings           |
+| *Limits*            | [**neo_api_client.limits**](docs/Limits.md#limits)                                    | Limits             |
+| *Margin Required*   | [**neo_api_client.margin_required**](docs/Margin_Required.md#margin_required)         | Margin Required    |
+| *Scrip Master*      | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)                  | Scrip Master       |
+| *Search Scrip*      | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)                  | Scrip Search       |
+| *Neo Symbol Quotes* | [**neo_api_client.neosymbol_quotes**](docs/Neosymbo_Quotes.md#neosymbol_quotes)       | Neo Symbol Quotes             |
+| *Quotes*            | [**neo_api_client.quotes**](docs/Quotes.md#quotes)                                    | Quotes             |
+| *Subscribe*         | [**neo_api_client.subscribe**](docs/webSocket.md#websocket)                           | Subscribe          |
 
