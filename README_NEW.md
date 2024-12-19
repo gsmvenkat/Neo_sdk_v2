@@ -5,7 +5,7 @@
 
 ## Requirements.
 
-Python 2.7+ and 3.0+
+Python 3.10+
 
 ## Installation & Usage
 ### pip install
@@ -192,22 +192,28 @@ client.logout()
 
 ## Documentation for API Endpoints
 
-| Class               | Method                                                                                | Description        |
-|---------------------|---------------------------------------------------------------------------------------|--------------------|
-| *Base Url*          | [**neo_api_client.BaseUrl**](docs/Base_url.md#base_url)                               | Base Url           |
-| *LoginAPI*          | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)                   | Initialise Session |
-| *Place Order*       | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)                      | Place Order        |
-| *Modify Order*      | [**neo_api_client.modifyorder**](docs/Modify_Order.md#modify_order)                   | Modify Order       |
-| *Cancel Order*      | [**neo_api_client.cancelorder**](docs/Cancel_Order.md#cancel_order)                   | Cancel Order       |
-| *Order Report*      | [**neo_api_client.orderreport**](docs/Order_report.md#order_report_and_order_history) | Order Report       |
-| *Trade Report*      | [**neo_api_client.tradereport**](docs/Trade_report.md#trade_report)                   | Trade Report       |
-| *Positions*         | [**neo_api_client.positions**](docs/Positions.md#positions)                           | Positions          |
-| *Holdings*          | [**neo_api_client.holdings**](docs/Holdings.md#holdings)                              | Holdings           |
-| *Limits*            | [**neo_api_client.limits**](docs/Limits.md#limits)                                    | Limits             |
-| *Margin Required*   | [**neo_api_client.margin_required**](docs/Margin_Required.md#margin_required)         | Margin Required    |
-| *Scrip Master*      | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)                  | Scrip Master       |
-| *Search Scrip*      | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)                  | Scrip Search       |
-| *Neo Symbol Quotes* | [**neo_api_client.neosymbol_quotes**](docs/Neosymbo_Quotes.md#neosymbol_quotes)       | Neo Symbol Quotes             |
-| *Quotes*            | [**neo_api_client.quotes**](docs/Quotes.md#quotes)                                    | Quotes             |
-| *Subscribe*         | [**neo_api_client.subscribe**](docs/webSocket.md#websocket)                           | Subscribe          |
+| Class              | Method                                                                                | Description              |
+|--------------------|---------------------------------------------------------------------------------------|--------------------------|
+| *Base Url*         | [**neo_api_client.BaseUrl**](docs/Base_url.md#base_url)                               | Base Url                 |
+| *LoginAPI*         | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)                   | Initialise Session       |
+| *TOTP LoginAPI*    | [**neo_api_client.Totp_verify_user**](docs/Totp_verify_user.md#totp_verify_user)      | Verify User              |
+| *TOTP LoginAPI*    | [**neo_api_client.Totp_registration**](docs/Totp_register.md#totp_register)           | TOTP Registration        |
+| *TOTP LoginAPI*    | [**neo_api_client.Totp_login**](docs/Totp_login.md#totp_login)                        | TOTP Login               |
+| *TOTP LoginAPI*    | [**neo_api_client.Totp_validation**](docs/Totp_validate.md#totp_validate)             | TOTP Validation          |
+| *TOTP LoginAPI*    | [**neo_api_client.Totp_deregister**](docs/Totp_deregister.md#totp_deregister)         | TOTP De-Register         |
+| *QR Code LoginAPI* | [**neo_api_client.Qr_code_link**](docs/Qr_code_link.md#qr_code_link)                  | QR Code Get Link         |
+| *QR Code LoginAPI* | [**neo_api_client.Qr_code_session**](docs/Qr_code_session.md#qr_code_session)         | QR Code Generate Session |
+| *Place Order*      | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)                      | Place Order              |
+| *Modify Order*     | [**neo_api_client.modifyorder**](docs/Modify_Order.md#modify_order)                   | Modify Order             |
+| *Cancel Order*     | [**neo_api_client.cancelorder**](docs/Cancel_Order.md#cancel_order)                   | Cancel Order             |
+| *Order Report*     | [**neo_api_client.orderreport**](docs/Order_report.md#order_report_and_order_history) | Order Report             |
+| *Trade Report*     | [**neo_api_client.tradereport**](docs/Trade_report.md#trade_report)                   | Trade Report             |
+| *Positions*        | [**neo_api_client.positions**](docs/Positions.md#positions)                           | Positions                |
+| *Holdings*         | [**neo_api_client.holdings**](docs/Holdings.md#holdings)                              | Holdings                 |
+| *Limits*           | [**neo_api_client.limits**](docs/Limits.md#limits)                                    | Limits                   |
+| *Margin Required*  | [**neo_api_client.margin_required**](docs/Margin_Required.md#margin_required)         | Margin Required          |
+| *Scrip Master*     | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)                  | Scrip Master             |
+| *Search Scrip*     | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)                  | Scrip Search             |
+| *Quotes*           | [**neo_api_client.quotes**](docs/Neosymbo_Quotes.md#quotes)                           | Quotes                   |
+| *Subscribe*        | [**neo_api_client.subscribe**](docs/webSocket.md#websocket)                           | Subscribe                |
 

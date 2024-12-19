@@ -1,4 +1,4 @@
-# **Neosymbol_quotes**
+# **Quotes**
 Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details` <br/>
 
 By default, `quote_type` is set as `all`, which means you will get the complete data.<br/>
