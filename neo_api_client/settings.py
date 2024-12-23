@@ -25,8 +25,8 @@ UAT_URL = {
     "totp_validate": "api/1.0/login/v6/totp/validate",
     "totp_de_register": "apim/login/2.0/login/v6/totp/deregister",
     "quotes_neo_symbol": "apim/quotes/2.0/quotes/neosymbol/{neo_symbols}/{quote_type}",
-    "qr_code_get_link": "login/1.0/algo-user/v5/login/authorization/dialog",
-    "qr_code_generate_session": "login/1.0/algo-user/v5/login/generate-session-token"
+    "qr_code_get_link": "apim/login/2.0/algo-user/v5/login/authorization/dialog",
+    "qr_code_generate_session": "apim/login/2.0/algo-user/v5/login/generate-session-token"
 }
 
 PROD_URL = {
@@ -52,8 +52,8 @@ PROD_URL = {
     "totp_validate": "apim/login/2.0/login/v6/totp/validate",
     "totp_de_register": "apim/login/2.0/login/v6/totp/deregister",
     "quotes_neo_symbol": "apim/quotes/2.0/quotes/neosymbol/{neo_symbols}/{quote_type}",
-    "qr_code_get_link": "login/1.0/algo-user/v5/login/authorization/dialog",
-    "qr_code_generate_session": "login/1.0/algo-user/v5/login/generate-session-token"
+    "qr_code_get_link": "apim/login/2.0/algo-user/v5/login/authorization/dialog",
+    "qr_code_generate_session": "apim/login/2.0/algo-user/v5/login/generate-session-token"
 }
 
 exchange_segment_allowed_values = ["NSE", "nse", "BSE", "bse", "NFO", "nfo", "BFO", "bfo", "CDS", "cds", "BCD", "bcd",
