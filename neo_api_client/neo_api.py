@@ -804,3 +804,20 @@ class NeoAPI:
             return error
         quotes_neo_symbol_response = neo_api_client.QuotesAPI(self.api_client).get_quotes_neo_symbol(neo_symbol=neo_symbol, quote_type=quote_type)
         return quotes_neo_symbol_response
+    def qr_code_get_link(self, ucc=None):
+        if not ucc:
+            error = {
+                'error': [{'message': 'Validation Errors! UCC is missing'}]}
+            return error
+
+        qr_code_get_link = neo_api_client.QrCodeAPI(self.api_client).qr_code_get_link(ucc=ucc)
+        return qr_code_get_link
+
+    def qr_code_generate_session(self, ott=None, ucc=None):
+        if not ott or not ucc:
+            error = {
+                'error': [{'message': 'Validation Errors! Either OTT or UCC is missing'}]}
+            return error
+
+        session_response = neo_api_client.QrCodeAPI(self.api_client).qr_code_generate_session(ott=ott, ucc=ucc)
+        return session_response
