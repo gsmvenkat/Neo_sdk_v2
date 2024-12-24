@@ -7,6 +7,7 @@ class OrderAPI(object):
     def __init__(self, api_client):
         self.api_client = api_client
         self.rest_client = api_client.rest_client
+        self.order_source = "FINTECH001"
 
     def order_placing(self, exchange_segment, product, price, order_type, quantity, validity, trading_symbol,
                       transaction_type, amo=None, disclosed_quantity=None, market_protection=None, pf=None,
@@ -19,7 +20,7 @@ class OrderAPI(object):
                              "Content-Type": "application/x-www-form-urlencoded"}
             body_params = {"am": amo, "dq": disclosed_quantity, "es": exchange_segment, "mp": market_protection,
                            "pc": product, "pf": pf, "pr": price, "pt": order_type, "qt": quantity, "rt": validity,
-                           "tp": trigger_price, "ts": trading_symbol, "tt": transaction_type, "ig": tag}
+                           "tp": trigger_price, "ts": trading_symbol, "tt": transaction_type, "ig": tag, "os": self.order_source}
 
             query_params = {"sId": self.api_client.configuration.serverId}
             URL = self.api_client.configuration.get_url_details("place_order")
