@@ -34,3 +34,4 @@ from neo_api_client.api.scrip_search import ScripSearch
 from neo_api_client.api.totp_api import TotpAPI
 from neo_api_client.api.quotes_neo_symbol_api import QuotesAPI
 from neo_api_client.api.qr_code_api import QrCodeAPI
+from neo_api_client.mobile_verification import UserVerification
