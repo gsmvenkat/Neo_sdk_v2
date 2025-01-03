@@ -4,57 +4,6 @@ from neo_api_client.settings import exchange_segment_allowed_values, product_all
     order_type_allowed_values, segment_limits, exchange_limits, product_limits
 
 
-def login_params_validation(mobilenumber=None, userid=None, pan=None, mpin=None, password=None):
-    out_dict = {}
-    if mobilenumber:
-        if not isinstance(mobilenumber, str):
-            raise ValueError("Input must be in String Format")
-        # if len(mobilenumber) == 12:
-        #     mobilenumber = "+" + str(mobilenumber)
-        #     login_params_validation(mobilenumber=mobilenumber)
-        # if len(mobilenumber) > 10 and len(mobilenumber) == 13:
-        #     if not mobilenumber.startswith("+91"):
-        #         raise ValueError("Expecting Mobile Number with country will starts with +91")
-        #     else:
-        #         mobilenumber = mobilenumber
-        # if len(mobilenumber) < 10:
-        #     Exception({'error': [{'code': '10300', 'message': 'Validation Errors'}]})
-        if len(mobilenumber) == 10:
-            mobilenumber = "+91" + str(mobilenumber)
-        # else:
-        #     raise ValueError(
-        #         "Input Number length must be 13(with country code (+91)) or 10(Without Country Code), "
-        #         "must be accepted")
-        out_dict["mobileNumber"] = mobilenumber
-    elif pan:
-        pan = pan.upper()
-        if not isinstance(pan, str):
-            error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Input must be in String Format'}]}
-            return error
-        if len(pan) != 10:
-            error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Length of PAN should be 10'}]}
-            return error
-        if not pan[:5].isalpha() or not pan[5:9].isdigit() or not pan[9].isalpha():
-            error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Give PAN Number is Not Valid'}]}
-            return error
-        out_dict["pan"] = pan
-    elif userid:
-        out_dict["userid"] = userid
-    else:
-        error = {
-            'error': [{'code': '10300', 'message': 'Validation Errors! Pass any of Mobile Number, User ID  or Pan'}]}
-        return error
-
-    if mpin:
-        out_dict["mpin"] = mpin
-    elif password:
-        out_dict["password"] = password
-    return out_dict
-
-
 def validate_configuration(consumer_key, consumer_secret):
     if not consumer_key:
         raise ApiValueError(

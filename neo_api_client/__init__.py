@@ -6,7 +6,6 @@ from neo_api_client.exceptions import ApiValueError
 from neo_api_client.exceptions import ApiKeyError
 from neo_api_client.exceptions import ApiAttributeError
 from neo_api_client.exceptions import ApiException
-from .req_data_validation import login_params_validation
 
 
 from neo_api_client.api.login_api import LoginAPI

@@ -81,63 +81,6 @@ class NeoAPI:
         self.NeoWebSocket = None
         self.configuration.neo_fin_key = neo_fin_key
 
-    def login(self, password=None, mobilenumber=None, userid=None, pan=None, mpin=None):
-        """
-        Logs in to the system by generating a view token using the provided mobile number and password.
-        Generates an OTP (One-Time Password) for the user's session.
-
-        Parameters:
-        password (str): The password of the user.
-        mobilenumber (str, optional): The mobile number of the user. Defaults to None.
-        userid (str, optional): The user ID of the user. Defaults to None.
-        pan (str, optional): The PAN (Permanent Account Number) of the user. Defaults to None.
-        Either of pan/mobilenumber/userid has to pass to login
-
-        Returns:
-            {'data': {'token': '','sid': '', 'rid': '', 'hsServerId': '',isUserPwdExpired': , 'caches': {
-        'baskets': '', 'lastUpdatedTS': '', 'multiplewatchlists': '', 'techchartpreferences': ''}, 'ucc': '',
-        'greetingName': '', 'isTrialAccount': , 'dataCenter': '', 'searchAPIKey': ''}}
-
-
-        Updates:
-        view_token: sets the view token obtained from the API response.
-        sid: sets the sid obtained from the API response.
-
-        Raises:
-        ApiException: if the view token or OTP generation fails.
-        """
-        if not mobilenumber and not userid and not pan:
-            error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Any of Mobile Number, User Id and Pan has '
-                                                       'to pass as part of login'}]}
-            return error
-
-        view_token = neo_api_client.LoginAPI(self.api_client).generate_view_token(password=password, mobilenumber=mobilenumber,
-                                                                                  userid=userid, pan=pan, mpin=mpin)
-        if "error" not in view_token:
-            gen_otp = neo_api_client.LoginAPI(self.api_client).generate_otp()
-            # print(gen_otp)
-        else:
-            gen_otp = {'error': [{'code': '10522', 'message': 'Issues while generating OTP! Try to login again.'}]}
-        return view_token
-
-    def session_2fa(self, OTP):
-        """
-            Establishes a session with the API using the provided OTP.
-
-            Parameters:
-            OTP (str): The one-time password (OTP) for the user's session.
-
-            Returns: {'data': {'token': '', 'sid': '', 'rid': '', 'hsServerId': '', 'isUserPwdExpired': False,
-            'caches': {'baskets': '', 'lastUpdatedTS': '', 'multiplewatchlists': '', 'techchartpreferences': ''},
-            'ucc': '', 'greetingName': '', 'isTrialAccount': False, 'dataCenter': '', 'searchAPIKey': ''}}
-
-            Updates:
-            edit_token: sets the edit token obtained from the API response.
-        """
-        edit_token = neo_api_client.LoginAPI(self.api_client).login_2fa(OTP)
-        return edit_token
-
     def place_order(self, exchange_segment, product, price, order_type, quantity, validity, trading_symbol,
                     transaction_type, amo="NO", disclosed_quantity="0", market_protection="0", pf="N",
                     trigger_price="0", tag=None):
