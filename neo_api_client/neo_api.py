@@ -485,60 +485,6 @@ class NeoAPI:
         else:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
 
-    def quotes(self, instrument_tokens, quote_type=None, isIndex=False, session_token=None, sid=None,
-               server_id=None):
-        """
-            Subscribe to real-time quotes for the given instrument tokens.
-
-            Args:
-                instrument_tokens (List): A JSON-encoded list of instrument tokens to subscribe to.
-                quote_type (str): The type of quote to subscribe to.
-                isIndex (bool): Whether the instrument is an index.
-                session_token (str): The session token to use for authentication. This argument is optional if the login has been completed.
-                sid (str): The session ID to use for authentication. This argument is mandatory if the session token is passed as input.
-                server_id (str): The server ID to use for authentication. This argument is mandatory if the session token is passed as input.
-                on_error (callable): A callback function to be called whenever an error occurs.
-
-            Returns:
-                JSON-encoded list of Quotes information
-
-            Raises:
-                ValueError: If the instrument tokens are not provided, or if the session token and SID are not provided when there is no Login.
-        """
-        if not instrument_tokens:
-            raise ValueError("Without instrument_tokens it's hard to subscribe with None values")
-
-        if len(instrument_tokens) > 100:
-            # print({'Error': "Error", 'message': "Tokens must be less than 100"})
-            return {'Error': "Error", 'message': "Tokens must be less than 100"}
-
-        if not session_token and not self.configuration.edit_token:
-            raise ValueError("Error! Login or pass the Session Token and SID")
-
-        if not sid and not self.configuration.edit_sid:
-            raise ValueError("Error! Login or Kindly pass the SID token to proceed further")
-        
-        if not server_id and not self.configuration.serverId:
-            raise ValueError("Error! Login or Kindly pass the server ID token to proceed further")
-        
-        if(not session_token and self.configuration.edit_token):
-            session_token = self.configuration.edit_token
-
-        if(not sid and self.configuration.edit_sid):
-            sid = self.configuration.edit_sid
-        
-        if(not server_id and self.configuration.serverId):
-            server_id = self.configuration.serverId
-
-        if not self.NeoWebSocket:
-            self.check_callbacks()
-            self.NeoWebSocket = neo_api_client.NeoWebSocket(sid, session_token, server_id, data_center=None)
-            self.set_neowebsocket_callbacks()
-
-        response = self.NeoWebSocket.get_quotes(instrument_tokens=instrument_tokens, quote_type=quote_type, isIndex=isIndex)
-      
-        return response
-        
     def __on_open(self):
         if self.on_open:
             self.on_open("The Session has been Opened!")
@@ -712,13 +658,13 @@ class NeoAPI:
         totp_validate = neo_api_client.TotpAPI(self.api_client).totp_validate(mpin=mpin)
         return totp_validate
 
-    def quotes_neo_symbol(self, neo_symbol=None, quote_type=None):
-        if not neo_symbol:
+    def quotes(self, instrument_tokens=None, quote_type=None):
+        if not instrument_tokens:
             error = {
-                'error': [{'message': 'Validation Errors! neo_symbol is missing'}]}
+                'error': [{'message': 'Validation Errors! instrument_tokens are missing'}]}
             return error
-        quotes_neo_symbol_response = neo_api_client.QuotesAPI(self.api_client).get_quotes_neo_symbol(neo_symbol=neo_symbol, quote_type=quote_type)
-        return quotes_neo_symbol_response
+        quotes_response = neo_api_client.QuotesAPI(self.api_client).get_quotes(instrument_tokens=instrument_tokens, quote_type=quote_type)
+        return quotes_response
 
     def qr_code_get_link(self, ucc=None):
         if not ucc:

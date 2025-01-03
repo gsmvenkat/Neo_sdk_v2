@@ -9,10 +9,10 @@ class QuotesAPI(object):
         # self.base64_token = api_client.configuration.base64_token
         self.rest_client = api_client.rest_client
 
-    def get_quotes_neo_symbol(self, neo_symbol=None, quote_type=None):
+    def get_quotes(self, instrument_tokens=None, quote_type=None):
         if not quote_type:
             quote_type = 'all'
-        neo_symbol_str = ",".join(f"{item['exchange_segment']}|{item['instrument_token']}" for item in neo_symbol)
+        neo_symbol_str = ",".join(f"{item['exchange_segment']}|{item['instrument_token']}" for item in instrument_tokens)
         encoded_neo_symbol_str = urllib.parse.quote(neo_symbol_str)
         header_params = {'Authorization': "Bearer " + self.api_client.configuration.bearer_token}
         URL = self.api_client.configuration.get_url_details("quotes_neo_symbol")
