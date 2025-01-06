@@ -6,7 +6,6 @@ from neo_api_client.exceptions import ApiValueError
 from neo_api_client.exceptions import ApiKeyError
 from neo_api_client.exceptions import ApiAttributeError
 from neo_api_client.exceptions import ApiException
-from .req_data_validation import login_params_validation
 
 
 from neo_api_client.api.login_api import LoginAPI
@@ -33,3 +32,5 @@ from neo_api_client.api.modify_order_api import ModifyOrder
 from neo_api_client.api.scrip_search import ScripSearch
 from neo_api_client.api.totp_api import TotpAPI
 from neo_api_client.api.quotes_neo_symbol_api import QuotesAPI
+from neo_api_client.api.qr_code_api import QrCodeAPI
+from neo_api_client.mobile_verification import UserVerification

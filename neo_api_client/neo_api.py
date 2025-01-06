@@ -81,63 +81,6 @@ class NeoAPI:
         self.NeoWebSocket = None
         self.configuration.neo_fin_key = neo_fin_key
 
-    def login(self, password=None, mobilenumber=None, userid=None, pan=None, mpin=None):
-        """
-        Logs in to the system by generating a view token using the provided mobile number and password.
-        Generates an OTP (One-Time Password) for the user's session.
-
-        Parameters:
-        password (str): The password of the user.
-        mobilenumber (str, optional): The mobile number of the user. Defaults to None.
-        userid (str, optional): The user ID of the user. Defaults to None.
-        pan (str, optional): The PAN (Permanent Account Number) of the user. Defaults to None.
-        Either of pan/mobilenumber/userid has to pass to login
-
-        Returns:
-            {'data': {'token': '','sid': '', 'rid': '', 'hsServerId': '',isUserPwdExpired': , 'caches': {
-        'baskets': '', 'lastUpdatedTS': '', 'multiplewatchlists': '', 'techchartpreferences': ''}, 'ucc': '',
-        'greetingName': '', 'isTrialAccount': , 'dataCenter': '', 'searchAPIKey': ''}}
-
-
-        Updates:
-        view_token: sets the view token obtained from the API response.
-        sid: sets the sid obtained from the API response.
-
-        Raises:
-        ApiException: if the view token or OTP generation fails.
-        """
-        if not mobilenumber and not userid and not pan:
-            error = {
-                'error': [{'code': '10300', 'message': 'Validation Errors! Any of Mobile Number, User Id and Pan has '
-                                                       'to pass as part of login'}]}
-            return error
-
-        view_token = neo_api_client.LoginAPI(self.api_client).generate_view_token(password=password, mobilenumber=mobilenumber,
-                                                                                  userid=userid, pan=pan, mpin=mpin)
-        if "error" not in view_token:
-            gen_otp = neo_api_client.LoginAPI(self.api_client).generate_otp()
-            # print(gen_otp)
-        else:
-            gen_otp = {'error': [{'code': '10522', 'message': 'Issues while generating OTP! Try to login again.'}]}
-        return view_token
-
-    def session_2fa(self, OTP):
-        """
-            Establishes a session with the API using the provided OTP.
-
-            Parameters:
-            OTP (str): The one-time password (OTP) for the user's session.
-
-            Returns: {'data': {'token': '', 'sid': '', 'rid': '', 'hsServerId': '', 'isUserPwdExpired': False,
-            'caches': {'baskets': '', 'lastUpdatedTS': '', 'multiplewatchlists': '', 'techchartpreferences': ''},
-            'ucc': '', 'greetingName': '', 'isTrialAccount': False, 'dataCenter': '', 'searchAPIKey': ''}}
-
-            Updates:
-            edit_token: sets the edit token obtained from the API response.
-        """
-        edit_token = neo_api_client.LoginAPI(self.api_client).login_2fa(OTP)
-        return edit_token
-
     def place_order(self, exchange_segment, product, price, order_type, quantity, validity, trading_symbol,
                     transaction_type, amo="NO", disclosed_quantity="0", market_protection="0", pf="N",
                     trigger_price="0", tag=None):
@@ -542,60 +485,6 @@ class NeoAPI:
         else:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
 
-    def quotes(self, instrument_tokens, quote_type=None, isIndex=False, session_token=None, sid=None,
-               server_id=None):
-        """
-            Subscribe to real-time quotes for the given instrument tokens.
-
-            Args:
-                instrument_tokens (List): A JSON-encoded list of instrument tokens to subscribe to.
-                quote_type (str): The type of quote to subscribe to.
-                isIndex (bool): Whether the instrument is an index.
-                session_token (str): The session token to use for authentication. This argument is optional if the login has been completed.
-                sid (str): The session ID to use for authentication. This argument is mandatory if the session token is passed as input.
-                server_id (str): The server ID to use for authentication. This argument is mandatory if the session token is passed as input.
-                on_error (callable): A callback function to be called whenever an error occurs.
-
-            Returns:
-                JSON-encoded list of Quotes information
-
-            Raises:
-                ValueError: If the instrument tokens are not provided, or if the session token and SID are not provided when there is no Login.
-        """
-        if not instrument_tokens:
-            raise ValueError("Without instrument_tokens it's hard to subscribe with None values")
-
-        if len(instrument_tokens) > 100:
-            # print({'Error': "Error", 'message': "Tokens must be less than 100"})
-            return {'Error': "Error", 'message': "Tokens must be less than 100"}
-
-        if not session_token and not self.configuration.edit_token:
-            raise ValueError("Error! Login or pass the Session Token and SID")
-
-        if not sid and not self.configuration.edit_sid:
-            raise ValueError("Error! Login or Kindly pass the SID token to proceed further")
-        
-        if not server_id and not self.configuration.serverId:
-            raise ValueError("Error! Login or Kindly pass the server ID token to proceed further")
-        
-        if(not session_token and self.configuration.edit_token):
-            session_token = self.configuration.edit_token
-
-        if(not sid and self.configuration.edit_sid):
-            sid = self.configuration.edit_sid
-        
-        if(not server_id and self.configuration.serverId):
-            server_id = self.configuration.serverId
-
-        if not self.NeoWebSocket:
-            self.check_callbacks()
-            self.NeoWebSocket = neo_api_client.NeoWebSocket(sid, session_token, server_id, data_center=None)
-            self.set_neowebsocket_callbacks()
-
-        response = self.NeoWebSocket.get_quotes(instrument_tokens=instrument_tokens, quote_type=quote_type, isIndex=isIndex)
-      
-        return response
-        
     def __on_open(self):
         if self.on_open:
             self.on_open("The Session has been Opened!")
@@ -751,32 +640,13 @@ class NeoAPI:
         else:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
 
-    def totp_verify_user(self, mobilenumber=None, ucc=None):
-        if not mobilenumber or not ucc:
-            error = {
-                'error': [{'message': 'Validation Errors! Any of Mobile Number or UCC is '
-                                                       'missing for the user verification'}]}
-            return error
-
-        totp_verify_user_resp = neo_api_client.TotpAPI(self.api_client).totp_verify_user(mobile_number=mobilenumber, ucc=ucc)
-        return totp_verify_user_resp
-
-    def totp_registration(self, totp=None):
-        if not totp:
-            error = {
-                'error': [{'message': 'Validation Errors! TOTP missing for the TOTP registration'}]}
-            return error
-
-        totp_register_response = neo_api_client.TotpAPI(self.api_client).totp_registration(totp=totp)
-        return totp_register_response
-
-    def totp_login(self, mobilenumber=None, ucc=None, totp=None):
-        if not mobilenumber or not ucc or not totp:
+    def totp_login(self, mobile_number=None, ucc=None, totp=None):
+        if not mobile_number or not ucc or not totp:
             error = {
                 'error': [{'message': 'Any of Mobile Number, UCC or totp is missing'}]}
             return error
 
-        totp_login = neo_api_client.TotpAPI(self.api_client).totp_login(mobile_number=mobilenumber, ucc=ucc, totp=totp)
+        totp_login = neo_api_client.TotpAPI(self.api_client).totp_login(mobile_number=mobile_number, ucc=ucc, totp=totp)
         return totp_login
 
     def totp_validate(self, mpin=None):
@@ -788,19 +658,28 @@ class NeoAPI:
         totp_validate = neo_api_client.TotpAPI(self.api_client).totp_validate(mpin=mpin)
         return totp_validate
 
-    def totp_de_register(self, mpin=None):
-        if not mpin:
+    def quotes(self, instrument_tokens=None, quote_type=None):
+        if not instrument_tokens:
             error = {
-                'error': [{'message': 'Validation Errors! Mpin missing for the TOTP de-registration'}]}
+                'error': [{'message': 'Validation Errors! instrument_tokens are missing'}]}
+            return error
+        quotes_response = neo_api_client.QuotesAPI(self.api_client).get_quotes(instrument_tokens=instrument_tokens, quote_type=quote_type)
+        return quotes_response
+
+    def qr_code_get_link(self, ucc=None):
+        if not ucc:
+            error = {
+                'error': [{'message': 'Validation Errors! UCC is missing'}]}
             return error
 
-        totp_de_register_response = neo_api_client.TotpAPI(self.api_client).totp_de_register(mpin=mpin)
-        return totp_de_register_response
+        qr_code_get_link = neo_api_client.QrCodeAPI(self.api_client).qr_code_get_link(ucc=ucc)
+        return qr_code_get_link
 
-    def quotes_neo_symbol(self, neo_symbol=None, quote_type=None):
-        if not neo_symbol:
+    def qr_code_generate_session(self, ott=None, ucc=None):
+        if not ott or not ucc:
             error = {
-                'error': [{'message': 'Validation Errors! neo_symbol is missing'}]}
+                'error': [{'message': 'Validation Errors! Either OTT or UCC is missing'}]}
             return error
-        quotes_neo_symbol_response = neo_api_client.QuotesAPI(self.api_client).get_quotes_neo_symbol(neo_symbol=neo_symbol, quote_type=quote_type)
-        return quotes_neo_symbol_response
+
+        session_response = neo_api_client.QrCodeAPI(self.api_client).qr_code_generate_session(ott=ott, ucc=ucc)
+        return session_response
