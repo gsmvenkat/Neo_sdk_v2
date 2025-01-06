@@ -4,7 +4,7 @@ Scan the QR code with your authenticator app or copy key to manually import in a
 The QR code is valid only for 2 minutes. So make sure to scan it before it expires.
 
 ```python
-client.totp_verify_user(mobilenumber="", ucc="")
+user_verification.totp_verify_user(ucc="")
 ```
 
 ### Example
@@ -12,11 +12,15 @@ client.totp_verify_user(mobilenumber="", ucc="")
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import UserVerification
 
 client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
 
 try:
-    client.totp_verify_user(mobilenumber="", ucc="")
+    user_verification = UserVerification(mobile_number="")
+    user_verification.send_otp(resend=False)
+    user_verification.verify_otp(code="5052")
+    user_verification.totp_verify_user(ucc="")
     
 except Exception as e:
     print("Exception when calling TOTPLogin->totp_verify_user: %s\n" % e)

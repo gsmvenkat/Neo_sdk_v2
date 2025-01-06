@@ -72,6 +72,14 @@ client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_
 
 # TOTP Login
 
+from neo_api_client import UserVerification
+
+user_verification = UserVerification(mobile_number="")
+
+# An otp will be sent to the registered mobile number
+user_verification.send_otp(resend=False)
+# Pass the otp received on the registered mobile number
+user_verification.verify_otp(code="")
 # totp_verify_user returns a base64 encoded qrcode image. Scanning the qrcode with google authenticator application and you'll recieve the TOTP
 # qr code is valid only for 2 minutes
 client.totp_verify_user(mobilenumber="", ucc="")
@@ -81,7 +89,7 @@ client.totp_registration(totp='')
 client.totp_login(mobilenumber="", ucc="", totp='')
 # totp_validate generates the trade token
 client.totp_validate(mpin="")
-#totp_de_register is used to de register the current token
+#totp_de_register is used to de-register the current token
 client.totp_de_register(mpin='')
 
 
@@ -150,7 +158,7 @@ client.search_scrip(exchange_segment="cde_fo", symbol="", expiry="", option_type
                     strike_price="")
 
 # Get quote details
-neo_symbol = [
+instrument_tokens = [
     {"instrument_token": "", "exchange_segment": ""},
     {"instrument_token": "", "exchange_segment": ""},
     {"instrument_token": "", "exchange_segment": ""}
@@ -158,20 +166,7 @@ neo_symbol = [
 # Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details` <br/>
 # By default, `quote_type` is set as `all`, which means you will get the complete data.<br/>
 # Quotes API can be accessed without completing login by passing `session_token`, `sid`, and `server_id`.
-client.quotes_neo_symbol(neo_symbol = neo_symbol, quote_type = "")
-
-
-# Get Quote details. 
-instrument_tokens = [{"instrument_token": "", "exchange_segment": ""},
-    {"instrument_token": "", "exchange_segment": ""},
-    {"instrument_token": "", "exchange_segment": ""},
-    {"instrument_token": "", "exchange_segment": ""}]
-
-# quote_type can be market_depth, ohlc, ltp, 52w, circuit_limits, scrip_details
-# By Default quote_type is set as None that means you will get the complete data.
-# Quotes api can be accessed without completing login by passing session_token, sid and server_id 
-client.quotes(instrument_tokens = instrument_tokens, quote_type="", isIndex=False, 
-              session_token="", sid="",server_id="")
+client.quotes(instrument_tokens = instrument_tokens, quote_type = "")
 
 
 # Subscribe method will get you the live feed details of the given tokens.
@@ -192,28 +187,30 @@ client.logout()
 
 ## Documentation for API Endpoints
 
-| Class              | Method                                                                                | Description              |
-|--------------------|---------------------------------------------------------------------------------------|--------------------------|
-| *Base Url*         | [**neo_api_client.BaseUrl**](docs/Base_url.md#base_url)                               | Base Url                 |
-| *LoginAPI*         | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)                   | Initialise Session       |
-| *TOTP LoginAPI*    | [**neo_api_client.Totp_verify_user**](docs/Totp_verify_user.md#totp_verify_user)      | Verify User              |
-| *TOTP LoginAPI*    | [**neo_api_client.Totp_registration**](docs/Totp_register.md#totp_register)           | TOTP Registration        |
-| *TOTP LoginAPI*    | [**neo_api_client.Totp_login**](docs/Totp_login.md#totp_login)                        | TOTP Login               |
-| *TOTP LoginAPI*    | [**neo_api_client.Totp_validation**](docs/Totp_validate.md#totp_validate)             | TOTP Validation          |
-| *TOTP LoginAPI*    | [**neo_api_client.Totp_deregister**](docs/Totp_deregister.md#totp_deregister)         | TOTP De-Register         |
-| *QR Code LoginAPI* | [**neo_api_client.Qr_code_link**](docs/Qr_code_link.md#qr_code_link)                  | QR Code Get Link         |
-| *QR Code LoginAPI* | [**neo_api_client.Qr_code_session**](docs/Qr_code_session.md#qr_code_session)         | QR Code Generate Session |
-| *Place Order*      | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)                      | Place Order              |
-| *Modify Order*     | [**neo_api_client.modifyorder**](docs/Modify_Order.md#modify_order)                   | Modify Order             |
-| *Cancel Order*     | [**neo_api_client.cancelorder**](docs/Cancel_Order.md#cancel_order)                   | Cancel Order             |
-| *Order Report*     | [**neo_api_client.orderreport**](docs/Order_report.md#order_report_and_order_history) | Order Report             |
-| *Trade Report*     | [**neo_api_client.tradereport**](docs/Trade_report.md#trade_report)                   | Trade Report             |
-| *Positions*        | [**neo_api_client.positions**](docs/Positions.md#positions)                           | Positions                |
-| *Holdings*         | [**neo_api_client.holdings**](docs/Holdings.md#holdings)                              | Holdings                 |
-| *Limits*           | [**neo_api_client.limits**](docs/Limits.md#limits)                                    | Limits                   |
-| *Margin Required*  | [**neo_api_client.margin_required**](docs/Margin_Required.md#margin_required)         | Margin Required          |
-| *Scrip Master*     | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)                  | Scrip Master             |
-| *Search Scrip*     | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)                  | Scrip Search             |
-| *Quotes*           | [**neo_api_client.quotes**](docs/Neosymbo_Quotes.md#quotes)                           | Quotes                   |
-| *Subscribe*        | [**neo_api_client.subscribe**](docs/webSocket.md#websocket)                           | Subscribe                |
+| Class               | Method                                                                                | Description              |
+|---------------------|---------------------------------------------------------------------------------------|--------------------------|
+| *Base Url*          | [**neo_api_client.BaseUrl**](docs/Base_url.md#base_url)                               | Base Url                 |
+| *LoginAPI*          | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)                   | Initialise Session       |
+| *User Verification* | [**neo_api_client.SendOTP**](docs/SendOTP.md#user_verification_send_otp)              | Send OTP                 |
+| *User Verification* | [**neo_api_client.VerifyOTP**](docs/VerifyOTP.md#user_verification_verify_otp)        | Send OTP                 |
+| *TOTP LoginAPI*     | [**neo_api_client.Totp_verify_user**](docs/Totp_verify_user.md#totp_verify_user)      | Verify User              |
+| *TOTP LoginAPI*     | [**neo_api_client.Totp_registration**](docs/Totp_register.md#totp_register)           | TOTP Registration        |
+| *TOTP LoginAPI*     | [**neo_api_client.Totp_login**](docs/Totp_login.md#totp_login)                        | TOTP Login               |
+| *TOTP LoginAPI*     | [**neo_api_client.Totp_validation**](docs/Totp_validate.md#totp_validate)             | TOTP Validation          |
+| *TOTP LoginAPI*     | [**neo_api_client.Totp_deregister**](docs/Totp_deregister.md#totp_deregister)         | TOTP De-Register         |
+| *QR Code LoginAPI*  | [**neo_api_client.Qr_code_link**](docs/Qr_code_link.md#qr_code_link)                  | QR Code Get Link         |
+| *QR Code LoginAPI*  | [**neo_api_client.Qr_code_session**](docs/Qr_code_session.md#qr_code_session)         | QR Code Generate Session |
+| *Place Order*       | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)                      | Place Order              |
+| *Modify Order*      | [**neo_api_client.modifyorder**](docs/Modify_Order.md#modify_order)                   | Modify Order             |
+| *Cancel Order*      | [**neo_api_client.cancelorder**](docs/Cancel_Order.md#cancel_order)                   | Cancel Order             |
+| *Order Report*      | [**neo_api_client.orderreport**](docs/Order_report.md#order_report_and_order_history) | Order Report             |
+| *Trade Report*      | [**neo_api_client.tradereport**](docs/Trade_report.md#trade_report)                   | Trade Report             |
+| *Positions*         | [**neo_api_client.positions**](docs/Positions.md#positions)                           | Positions                |
+| *Holdings*          | [**neo_api_client.holdings**](docs/Holdings.md#holdings)                              | Holdings                 |
+| *Limits*            | [**neo_api_client.limits**](docs/Limits.md#limits)                                    | Limits                   |
+| *Margin Required*   | [**neo_api_client.margin_required**](docs/Margin_Required.md#margin_required)         | Margin Required          |
+| *Scrip Master*      | [**neo_api_client.scrip_master**](docs/Scrip_Master.md#scrip_master)                  | Scrip Master             |
+| *Search Scrip*      | [**neo_api_client.scrip_search**](docs/Scrip_Search.md#scrip_search)                  | Scrip Search             |
+| *Quotes*            | [**neo_api_client.quotes**](docs/Quotes#quotes)                           | Quotes                   |
+| *Subscribe*         | [**neo_api_client.subscribe**](docs/webSocket.md#websocket)                           | Subscribe                |
 
