@@ -20,10 +20,12 @@ SESSION_PROD_BASE_URL_ADC = "https://cnapi.kotaksecurities.com/"
 #############################################################################
 #                               ORDER_FEED  URL
 #############################################################################
-ORDER_FEED_URL = "wss://mlhsi.kotaksecurities.com/realtime?sId={server_id}"
-ORDER_FEED_URL_GDC = "wss://mlhsi.kotaksecurities.com/realtime?sId={server_id}"
-ORDER_FEED_URL_GDCD = "wss://mdlhsi.kotaksecurities.com/realtime?sId={server_id}"
-ORDER_FEED_URL_ADC = "wss://clhsi.kotaksecurities.com/realtime?sId={server_id}"
+ORDER_FEED_URL = "wss://mis.kotaksecurities.com/realtime"
+ORDER_FEED_URL_ADC = "wss://cis.kotaksecurities.com/realtime"
+ORDER_FEED_URL_E21 = "wss://e21.kotaksecurities.com/realtime"
+ORDER_FEED_URL_E22 = "wss://e22.kotaksecurities.com/realtime"
+ORDER_FEED_URL_E41 = "wss://e41.kotaksecurities.com/realtime"
+ORDER_FEED_URL_E43 = "wss://e43.kotaksecurities.com/realtime"
 
 #############################################################################
 #                               BASE_URL  URL

@@ -6,7 +6,8 @@ import time
 import neo_api_client
 from neo_api_client.settings import stock_key_mapping, MarketDepthResp, QuotesChannel, \
     ReqTypeValues, index_key_mapping
-from neo_api_client.urls import ORDER_FEED_URL, ORDER_FEED_URL_GDC, ORDER_FEED_URL_GDCD, ORDER_FEED_URL_ADC
+from neo_api_client.urls import ORDER_FEED_URL, ORDER_FEED_URL_ADC, \
+    ORDER_FEED_URL_E21, ORDER_FEED_URL_E22, ORDER_FEED_URL_E41, ORDER_FEED_URL_E43
 
 
 # from neo_api_client.logger import logger
@@ -619,14 +620,20 @@ class NeoWebSocket:
             #                                      self.on_open, self.on_message, self.on_error, self.on_close)
 
     def start_hsi_websocket(self):
-        url = ORDER_FEED_URL.format(server_id=self.server_id)
+        url = ORDER_FEED_URL
         if self.data_center:
-            if self.data_center.lower() == 'gdc':
-                url = ORDER_FEED_URL_GDC.format(server_id=self.server_id)
-            elif self.data_center.lower() == 'gdcd':
-                url = ORDER_FEED_URL_GDCD.format(server_id=self.server_id)
-            elif self.data_center.lower() == 'adc':
-                url = ORDER_FEED_URL_ADC.format(server_id=self.server_id)
+            if self.data_center.lower() == 'adc':
+                url = ORDER_FEED_URL_ADC
+            elif self.data_center.lower() == 'e21':
+                url = ORDER_FEED_URL_E21
+            elif self.data_center.lower() == 'e22':
+                url = ORDER_FEED_URL_E22
+            elif self.data_center.lower() == 'e41':
+                url = ORDER_FEED_URL_E41
+            elif self.data_center.lower() == 'e43':
+                url = ORDER_FEED_URL_E43
+        print("start_hsi_websocket, url-------------->", url)
+        # print("message------->", self.on_hsi_message)
         self.hsiWebsocket = neo_api_client.HSIWebSocket()
         self.hsiWebsocket.open_connection(url=url, onopen=self.on_hsi_open,
                                           onmessage=self.on_hsi_message,
