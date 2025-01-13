@@ -1365,6 +1365,7 @@ class HSIWebSocket:
                 print("Invalid Request !")
         if hsiWs and req:
             js_obj = json.dumps(req)
+            js_obj = str(js_obj).replace('"', '').replace(' ', '')
             hsiWs.send(js_obj)
         else:
             print("Unable to send request! Reason: Connection faulty or request not valid!")
