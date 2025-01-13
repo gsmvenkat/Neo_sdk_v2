@@ -35,7 +35,7 @@ class OrderAPI(object):
         except ApiException as ex:
             return {"error": ex}
 
-    def order_cancelling(self, order_id, isVerify, amo=None, cover_order=False):
+    def order_cancelling(self, order_id, isVerify, amo=None):
         if isVerify:
             order_book_resp = neo_api_client.OrderReportAPI(self.api_client).ordered_books()
             if "data" in order_book_resp:
@@ -56,11 +56,6 @@ class OrderAPI(object):
 
         query_params = {"sId": self.api_client.configuration.serverId}
         URL = self.api_client.configuration.get_url_details("cancel_order")
-        print("cover_order----->", cover_order)
-        if cover_order:
-            URL = self.api_client.configuration.get_url_details("cancel_cover_order")
-        print("URL------->", URL)
-
         try:
             cancel_resp = self.rest_client.request(
                 url=URL, method='POST',

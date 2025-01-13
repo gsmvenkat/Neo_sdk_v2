@@ -35,7 +35,6 @@ PROD_URL = {
     "edit_token": "apim/login/2.0/login/v2/validate",
     "place_order": "apim/orders/2.0/quick/order/rule/ms/place",
     "cancel_order": "apim/orders/2.0/quick/order/cancel",
-    "cancel_cover_order": "apim/orders/2.0/quick/order/co/exit",
     "modify_order": "apim/orders/2.0/quick/order/vr/modify",
     "order_history": "apim/order/2.0/quick/order/history",
     "order_book": "apim/orders/2.0/quick/user/orders",
