@@ -66,4 +66,5 @@ class TotpAPI(object):
             self.api_client.configuration.edit_sid = totp_validate_data.get("data").get("sid")
             self.api_client.configuration.edit_rid = totp_validate_data.get("data").get("rid")
             self.api_client.configuration.serverId = totp_validate_data.get("data").get("hsServerId")
+            self.api_client.configuration.data_center = totp_validate_data.get("data").get("dataCenter")
         return totp_validate_data

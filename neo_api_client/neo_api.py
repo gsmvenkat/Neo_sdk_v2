@@ -616,7 +616,7 @@ class NeoAPI:
         else:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
 
-    def subscribe_to_orderfeed(self, data_center=None):
+    def subscribe_to_orderfeed(self):
         """
             Subscribe To OrderFeed
 
@@ -626,7 +626,6 @@ class NeoAPI:
             Returns:
                 Order Feed information.
         """
-        self.configuration.data_center = data_center
         if self.configuration.edit_token and self.configuration.edit_sid:
             self.check_callbacks()
             if not self.NeoWebSocket:

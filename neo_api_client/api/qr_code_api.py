@@ -50,5 +50,6 @@ class QrCodeAPI(object):
             self.api_client.configuration.edit_sid = session_data.get("data").get("sid")
             self.api_client.configuration.edit_rid = session_data.get("data").get("rid")
             self.api_client.configuration.serverId = session_data.get("data").get("hsServerId")
+            self.api_client.configuration.data_center = session_data.get("data").get("dataCenter")
         return session_data
 
