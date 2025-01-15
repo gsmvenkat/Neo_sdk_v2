@@ -67,5 +67,37 @@ class OrderAPI(object):
         except ApiException as ex:
             return {"error": ex}
 
+    def cover_order_cancelling(self, order_id, isVerify, amo=None):
+        if isVerify:
+            order_book_resp = neo_api_client.OrderReportAPI(self.api_client).ordered_books()
+            if "data" in order_book_resp:
+                for item in order_book_resp["data"]:
+                    if item["nOrdNo"] == order_id.strip():
+                        if item["ordSt"] in ["rejected", "cancelled", "complete", "traded"]:
+                            if item["ordSt"] == 'complete':
+                                item["ordSt"] = 'Traded'
+                            return {"Error": "The Given Order Status is " + str(item["ordSt"]),
+                                    "Reason": item["rejRsn"]}
+
+        header_params = {'Authorization': "Bearer " + self.api_client.configuration.bearer_token,
+                         "Sid": self.api_client.configuration.edit_sid,
+                         "Auth": self.api_client.configuration.edit_token,
+                         "neo-fin-key": self.api_client.configuration.get_neo_fin_key(),
+                         "Content-Type": "application/x-www-form-urlencoded"}
+        body_params = {"on": order_id, "am": amo}
+
+        query_params = {"sId": self.api_client.configuration.serverId}
+        URL = self.api_client.configuration.get_url_details("cancel_cover_order")
+        try:
+            cancel_resp = self.rest_client.request(
+                url=URL, method='POST',
+                query_params=query_params,
+                headers=header_params,
+                body=body_params
+            )
+            return cancel_resp.json()
+        except ApiException as ex:
+            return {"error": ex}
+
 
 
