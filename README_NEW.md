@@ -49,7 +49,7 @@ Please follow the [installation procedure](#installation--usage) and then refer 
 from neo_api_client import NeoAPI
 from neo_api_client import BaseUrl
 
-
+# ucc: Unique Client Code which you will find in mobile application/website under profile section
 base_url = BaseUrl(ucc='').get_base_url()
 
 def on_message(message):
@@ -64,7 +64,7 @@ def on_close(message):
 def on_open(message):
     print(message)
     
-#on_message, on_open, on_close and on_error is a call back function we will provide the response for the subscribe method.
+    
 # access_token is an optional one. If you have barrier token then pass and consumer_key and consumer_secret will be optional.
 # environment by default uat you can pass prod to connect to live server
 client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
@@ -74,32 +74,62 @@ client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_
 
 from neo_api_client import UserVerification
 
+# mobile_number: registered mobile number
 user_verification = UserVerification(mobile_number="")
 
+# resend: resend is an optional param. Default value is 'False'
 # An otp will be sent to the registered mobile number
 user_verification.send_otp(resend=False)
-# Pass the otp received on the registered mobile number
+
+# code: OTP you recieved on the registered phone number
 user_verification.verify_otp(code="")
-# totp_verify_user returns a base64 encoded qrcode image. Scanning the qrcode with google authenticator application and you'll recieve the TOTP
+
+# ucc: Unique Client Code which you will find in mobile application/website under profile section
+# totp_verify_user returns a base64 encoded qrcode image. 
+# Scan the qrcode with google authenticator application and you'll recieve the TOTP.
 # qr code is valid only for 2 minutes
-client.totp_verify_user(mobilenumber="", ucc="")
-# pass the totp from the above step to register it
-client.totp_registration(totp='')
+user_verification.totp_verify_user(ucc="")
+
+# totp: Time-based One-Time Password recieved on google authenticator application
+user_verification.totp_registration(totp="")
+
+# mobile_number: registered mobile number
+# ucc: Unique Client Code which you will find in mobile application/website under profile section
+# totp: Time-based One-Time Password recieved on google authenticator application
 # totp_login generates the view token and session id used to generate trade token
-client.totp_login(mobilenumber="", ucc="", totp='')
+client.totp_login(mobile_number="", ucc="", totp='')
+
+# mpin: 
 # totp_validate generates the trade token
 client.totp_validate(mpin="")
-#totp_de_register is used to de-register the current token
-client.totp_de_register(mpin='')
+
+
+# TOTP de-register
+
+# mobile_number: registered mobile number
+user_verification = UserVerification(mobile_number="")
+
+# resend: resend is an optional param. Default value is 'False'
+# An otp will be sent to the registered mobile number
+user_verification.send_otp(resend=False)
+
+# mpin: 
+# ucc: Unique Client Code which you will find in mobile application/website under profile section
+# totp_de_register is used to de-register the current TOTP
+user_verification.totp_de_register(mpin='210495', ucc="Y4HAU")
 
 
 
 # QR Code Login
+
+# ucc: Unique Client Code which you will find in mobile application/website under profile section
 # qr_code_get_link returns a qrcode
 client.qr_code_get_link(ucc='')
-# trade token is returned on passing ott to qr_code_generate_session 
-client.qr_code_generate_session(ott='', ucc='')
 
+# ott: 
+# ucc: Unique Client Code which you will find in mobile application/website under profile section
+# trade token is generated on passing ott to qr_code_generate_session 
+client.qr_code_generate_session(ott='', ucc='')
 
 
 # Setup Callbacks for websocket events (Optional)
@@ -108,19 +138,53 @@ client.on_error = on_error  # called when any error or exception occurs in code 
 client.on_close = on_close  # called when websocket connection is closed
 client.on_open = on_open  # called when websocket successfully connects
 
+
 # Once 2FA has you can place the order by using below function
+# exchange_segment: Expected values are nse_cm, bse_cm, nse_fo, bse_fo, cde_fo, bcs_fo
+# product: Expected values are NRML, CNC, MIS, INTRADAY, CO, BO
+# price:
+# order_type: Expected values are L, MKT, SL, SL-M, SP, 2L, 3L
+# validity: Expected values are DAY
+# trading_symbol: 
+# transaction_type: Expected values are B, S
+# amo: Expected values are either YES or NO
+# disclosed_quantity:
+# market_protection:
+# pf:
+# trigger_price:
+# tag:
 client.place_order(exchange_segment='', product='', price='', order_type='', quantity='', validity='', trading_symbol='', 
                    transaction_type='', amo='NO', disclosed_quantity='0', market_protection='0', pf='N', 
                    trigger_price='0', tag=None)
+
 						
 # Modify an order
+# order_id: 
+# price:
+# quantity: 
+# disclosed_quantity:
+# trigger_price:
+# validity: 
+# order_type:
 client.modify_order(order_id = "", price = "7.0", quantity = "2", disclosed_quantity = "0", trigger_price = "0", validity = "DAY", order_type='')
 
 # Cancel an order
 client.cancel_order(order_id = "")
 
+# isVerify: isVerify is an optional param. Default value is 'False'
 # This is delay type. if order id along with isVerify as True will be passed then check the status of the given order id and then proceed to further
 client.cancel_order(order_id = "", isVerify=True)
+
+# Cancel cover order
+# amo: 
+# isVerify: isVerify is an optional param. Default value is 'False'
+client.cancel_cover_order(order_id = "", amo = "", isVerify=False)
+
+# Cancel bracket order
+# amo: 
+# isVerify: isVerify is an optional param. Default value is 'False'
+client.cancel_bracket_order(order_id = "", amo = "", isVerify=False)
+
 
 # Get Order Book
 client.order_report()
@@ -150,10 +214,11 @@ client.margin_required(exchange_segment = "", price = "", order_type= "", produc
 client.scrip_master()
 
 # Get Scrip Master CSV file for specific Exchange Segment. 
+# exchange_segment: Section of a stock exchange. Its a mandatory param. Expected values are nse_cm, bse_cm, nse_fo, bse_fo, cde_fo, bcs_fo
 client.scrip_master(exchange_segment = "")
 
 # Search for the Scrip details from Scrip master file
-# exchange_segment is mandatory option to pass and remaining parameters are optional
+# exchange_segment: Section of a stock exchange. Its a mandatory param. Expected values are nse_cm, bse_cm, nse_fo, bse_fo, cde_fo, bcs_fo
 client.search_scrip(exchange_segment="cde_fo", symbol="", expiry="", option_type="",
                     strike_price="")
 
@@ -163,8 +228,8 @@ instrument_tokens = [
     {"instrument_token": "", "exchange_segment": ""},
     {"instrument_token": "", "exchange_segment": ""}
 ]
-# Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details` <br/>
-# By default, `quote_type` is set as `all`, which means you will get the complete data.<br/>
+# Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details`
+# By default, `quote_type` is set as `all`, which means you will get the complete data.
 # Quotes API can be accessed without completing login by passing `session_token`, `sid`, and `server_id`.
 client.quotes(instrument_tokens = instrument_tokens, quote_type = "")
 
@@ -178,8 +243,8 @@ client.subscribe(instrument_tokens = instrument_tokens, isIndex=False, isDepth=F
 client.un_subscribe(instrument_tokens=instrument_tokens, isIndex=False, isDepth=False)
 
 #Order Feed 
-#data_center is a mandatory option to pass
-client.subscribe_to_orderfeed(data_center="")
+client.subscribe_to_orderfeed()
+
 #Terminate user's Session
 client.logout()
 ```
