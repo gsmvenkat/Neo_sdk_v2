@@ -64,34 +64,15 @@ def on_close(message):
 def on_open(message):
     print(message)
     
-    
+# Either you pass consumer_key and consumer_secret or you pass acsess_token 
 # access_token is an optional one. If you have barrier token then pass and consumer_key and consumer_secret will be optional.
 # environment by default uat you can pass prod to connect to live server
+# neo_fin_key we recieve at the time of api registration on your registered email id
+# base_url You'll get by calling base_url api
 client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
 
 
-# TOTP Login
-
-from neo_api_client import UserVerification
-
-# mobile_number: registered mobile number
-user_verification = UserVerification(mobile_number="")
-
-# resend: resend is an optional param. Default value is 'False'
-# An otp will be sent to the registered mobile number
-user_verification.send_otp(resend=False)
-
-# code: OTP you recieved on the registered phone number
-user_verification.verify_otp(code="")
-
-# ucc: Unique Client Code which you will find in mobile application/website under profile section
-# totp_verify_user returns a base64 encoded qrcode image. 
-# Scan the qrcode with google authenticator application and you'll recieve the TOTP.
-# qr code is valid only for 2 minutes
-user_verification.totp_verify_user(ucc="")
-
-# totp: Time-based One-Time Password recieved on google authenticator application
-user_verification.totp_registration(totp="")
+# Login using TOTP
 
 # mobile_number: registered mobile number
 # ucc: Unique Client Code which you will find in mobile application/website under profile section
@@ -102,22 +83,6 @@ client.totp_login(mobile_number="", ucc="", totp='')
 # mpin: 
 # totp_validate generates the trade token
 client.totp_validate(mpin="")
-
-
-# TOTP de-register
-
-# mobile_number: registered mobile number
-user_verification = UserVerification(mobile_number="")
-
-# resend: resend is an optional param. Default value is 'False'
-# An otp will be sent to the registered mobile number
-user_verification.send_otp(resend=False)
-
-# mpin: 
-# ucc: Unique Client Code which you will find in mobile application/website under profile section
-# totp_de_register is used to de-register the current TOTP
-user_verification.totp_de_register(mpin='210495', ucc="Y4HAU")
-
 
 
 # QR Code Login
@@ -132,47 +97,43 @@ client.qr_code_get_link(ucc='')
 client.qr_code_generate_session(ott='', ucc='')
 
 
-# Setup Callbacks for websocket events (Optional)
-client.on_message = on_message  # called when message is received from websocket
-client.on_error = on_error  # called when any error or exception occurs in code or websocket
-client.on_close = on_close  # called when websocket connection is closed
-client.on_open = on_open  # called when websocket successfully connects
-
-
-# Once 2FA has you can place the order by using below function
+# Once you have session token after completing 2FA, you can place the order by using below function
 # exchange_segment: Expected values are nse_cm, bse_cm, nse_fo, bse_fo, cde_fo, bcs_fo
 # product: Expected values are NRML, CNC, MIS, INTRADAY, CO, BO
-# price:
+# price: scrip price
 # order_type: Expected values are L, MKT, SL, SL-M, SP, 2L, 3L
+# quantity: The stock quantity(If suppose one lot size of a stock is 25, then in disclosed_quantity you have to pass 25 and not 1)
 # validity: Expected values are DAY
-# trading_symbol: 
+# trading_symbol: scrip trading symbol. You will get this value from master scrip file
 # transaction_type: Expected values are B, S
 # amo: Expected values are either YES or NO
-# disclosed_quantity:
-# market_protection:
-# pf:
-# trigger_price:
-# tag:
+# disclosed_quantity: 0
+# market_protection: 0
+# pf: N
+# trigger_price: Price on which you want order to execute
+# tag: Give your own tag to track the order
 client.place_order(exchange_segment='', product='', price='', order_type='', quantity='', validity='', trading_symbol='', 
                    transaction_type='', amo='NO', disclosed_quantity='0', market_protection='0', pf='N', 
                    trigger_price='0', tag=None)
 
 						
 # Modify an order
-# order_id: 
-# price:
-# quantity: 
-# disclosed_quantity:
-# trigger_price:
-# validity: 
-# order_type:
+# order_id: Order number you'll recieve from the response after placing the order
+# price: scrip price
+# quantity: The stock quantity(If suppose one lot size of a stock is 25, then in disclosed_quantity you have to pass 25 and not 1)
+# disclosed_quantity: 0
+# trigger_price: Price on which you want order to execute
+# validity: Expected values are DAY
+# order_type: Expected values are L, MKT, SL, SL-M, SP, 2L, 3L
 client.modify_order(order_id = "", price = "7.0", quantity = "2", disclosed_quantity = "0", trigger_price = "0", validity = "DAY", order_type='')
 
 # Cancel an order
+# order_id: Order number you'll recieve from the response after placing the order
 client.cancel_order(order_id = "")
 
 # isVerify: isVerify is an optional param. Default value is 'False'
-# This is delay type. if order id along with isVerify as True will be passed then check the status of the given order id and then proceed to further
+# This request will check whether your order is rejected, cancelled, complete or traded. If any of this is true, your order will not be cancelled. This will be rejected with the rejection reson. 
+# If this is not the case, the your order will be cancelled.
 client.cancel_order(order_id = "", isVerify=True)
 
 # Cancel cover order
@@ -233,6 +194,12 @@ instrument_tokens = [
 # Quotes API can be accessed without completing login by passing `session_token`, `sid`, and `server_id`.
 client.quotes(instrument_tokens = instrument_tokens, quote_type = "")
 
+
+# Setup Callbacks for websocket events (Optional)
+client.on_message = on_message  # called when message is received from websocket
+client.on_error = on_error  # called when any error or exception occurs in code or websocket
+client.on_close = on_close  # called when websocket connection is closed
+client.on_open = on_open  # called when websocket successfully connects
 
 # Subscribe method will get you the live feed details of the given tokens.
 # By Default isIndex is set as False and you want to get the live feed to index scrips set the isIndex flag as True 
