@@ -669,6 +669,24 @@ class NeoAPI:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
 
     def totp_login(self, mobile_number=None, ucc=None, totp=None):
+        """
+            Logs in to the system by generating a view token using mobile_number, totp and ucc
+
+            Args:
+                mobile_number (str): Registered mobile number
+                ucc (str): Unique Client Code which you will find in mobile application/website under profile section
+                totp (str): The 6 digit code generated on the authenticator app
+
+            Returns:
+                {
+                    "data": {"token": "", "sid": "", "rid": "", "hsServerId": "", "isUserPwdExpired": , "ucc": "",
+                        "greetingName": "", "isTrialAccount": , "dataCenter": "", "searchAPIKey": "",
+                        "derivativesRiskDisclosure": "", "mfAccess": 1, "dataCenterMap": null, "dormancyStatus": "",
+                        "asbaStatus": "", "clientType": "", "isNRI": false, "kId": "", "kType": "", "status": "",
+                        "incRange": 0, "incUpdFlag": "", "clientGroup": ""}
+                }
+
+        """
         if not mobile_number or not ucc or not totp:
             error = {
                 'error': [{'message': 'Any of Mobile Number, UCC or totp is missing'}]}
@@ -678,6 +696,23 @@ class NeoAPI:
         return totp_login
 
     def totp_validate(self, mpin=None):
+        """
+            Establishes a session with the API using the generated view token and mpin.
+
+            Parameters:
+            mpin (str): The 6 digit pin
+
+            Returns: {
+                "data": {"token": "", "sid": "", "rid": "", "hsServerId": "", "isUserPwdExpired": false, "ucc": "",
+                    "greetingName": "", "isTrialAccount": false, "dataCenter": "gdc", "searchAPIKey": "",
+                    "derivativesRiskDisclosure": "", "mfAccess": 1, "dataCenterMap": null, "dormancyStatus": "",
+                    "asbaStatus": "", "clientType": "", "isNRI": false, "kId": "", "kType": "", "status": "",
+                    "incRange": 0, "incUpdFlag": "", "clientGroup": ""}
+            }
+
+            Updates:
+            edit_token: sets the edit token obtained from the API response.
+        """
         if not mpin:
             error = {
                 'error': [{'message': 'Mpin is missing'}]}
@@ -687,6 +722,19 @@ class NeoAPI:
         return totp_validate
 
     def quotes(self, instrument_tokens=None, quote_type=None):
+        """
+            Retrieves quotes for the given instrument tokens.
+
+            Args:
+                instrument_tokens (List): A JSON-encoded list of instrument tokens to subscribe to.
+                quote_type (str): The type of quote to subscribe to.
+
+            Returns:
+                JSON-encoded list of Quotes information
+
+            Raises:
+                ValueError: If the instrument tokens are not provided.
+        """
         if not instrument_tokens:
             error = {
                 'error': [{'message': 'Validation Errors! instrument_tokens are missing'}]}
