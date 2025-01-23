@@ -12,12 +12,14 @@ To get ScripMaster file of a particular segment, pass the exchange segment withi
 ```python
 
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
+
+base_url = BaseUrl(ucc='').get_base_url()
 
 #First initialize session and generate session token
-
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment=" ")
-client.login(mobilenumber=" ", password=" ")
-client.session_2fa("")
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+client.totp_login(mobilenumber="", ucc="", totp='')
+client.totp_validate(mpin="")
 
 try:
     client.scrip_master()
@@ -28,6 +30,22 @@ except Exception as e:
 ### Return type
 
 **object**
+
+### Sample response
+
+```json
+{
+    "filesPaths": [
+        "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2025-01-22/transformed/bse_cm.csv",
+        "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2025-01-22/transformed/cde_fo.csv",
+        "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2025-01-22/transformed/mcx_fo.csv",
+        "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2025-01-22/transformed/nse_cm.csv",
+        "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2025-01-22/transformed/nse_fo.csv",
+        "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2025-01-22/transformed/bse_fo.csv"
+    ],
+    "baseFolder": "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod"
+}
+```
 
 ### HTTP request headers
 

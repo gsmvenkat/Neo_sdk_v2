@@ -2,19 +2,21 @@
 TOTP registration is the second step in TOTP login flow.
 
 ```python
-client.totp_registration(totp='')
+user_verification.totp_registration(totp="")
 ```
 
 ### Example
 
 
 ```python
-from neo_api_client import NeoAPI
+from neo_api_client import UserVerification
 
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
 
+user_verification = UserVerification(mobile_number="")
+user_verification.send_otp(resend=False)
+user_verification.verify_otp(code="")
 try:
-    client.totp_registration(totp='')
+    user_verification.totp_registration(totp="")
     
 except Exception as e:
     print("Exception when calling TOTPLogin->totp_registration: %s\n" % e)

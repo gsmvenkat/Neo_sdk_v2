@@ -1,5 +1,6 @@
 # **Qr_code_link**
-Generating qr code is the first step in QR code login flow
+Generating qr code is the first step in QR code login flow.
+Scan the qr code from the redirect url received in the response
 
 ```python
 client.qr_code_get_link(ucc='')
@@ -10,8 +11,11 @@ client.qr_code_get_link(ucc='')
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
 
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
+base_url = BaseUrl(ucc='').get_base_url()
+
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
 
 try:
     client.qr_code_get_link(ucc='')

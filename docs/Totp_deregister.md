@@ -2,7 +2,7 @@
 You can deregister a TOTP using totp_de_register method
 
 ```python
-client.totp_de_register(mpin='')
+user_verification.totp_de_register(mpin='', ucc="")
 ```
 
 ### Example
@@ -10,11 +10,15 @@ client.totp_de_register(mpin='')
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import UserVerification
 
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
+base_url = BaseUrl(ucc='').get_base_url()
+
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+user_verification = UserVerification(mobile_number="")
 
 try:
-    client.totp_de_register(mpin='')
+    user_verification.totp_de_register(mpin='', ucc="")
     
 except Exception as e:
     print("Exception when calling TOTPLogin ->totp_de_register: %s\n" % e)

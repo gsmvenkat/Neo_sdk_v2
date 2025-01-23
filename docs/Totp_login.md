@@ -10,8 +10,12 @@ client.totp_login(mobilenumber="", ucc="", totp='')
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
 
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
+base_url = BaseUrl(ucc='').get_base_url()
+
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+
 
 try:
     client.totp_login(mobilenumber="", ucc="", totp='')
@@ -29,7 +33,7 @@ except Exception as e:
 
 ### Return type
 
-object
+**object**
 
 ### Sample response
 ```json

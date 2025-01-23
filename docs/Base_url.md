@@ -8,7 +8,6 @@ base_url = BaseUrl(ucc='').get_base_url()
 ### Example
 
 ```python
-from neo_api_client import NeoAPI
 from neo_api_client import BaseUrl
 
 
@@ -21,6 +20,21 @@ base_url = BaseUrl(ucc='').get_base_url()
 |-------------------|-----------------|------|
 | *ucc*             | Mandatory field | Str  |
 
+
+### Return type
+
+**object**
+
+### Sample response
+
+```json
+{
+    "data": {
+        "baseURL": "https://mnapi.kotaksecurities.com"
+    }
+}
+
+```
 
 ### HTTP request headers
 

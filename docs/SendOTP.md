@@ -1,8 +1,6 @@
 # **User_verification_send_otp**
 
 ```python
-from neo_api_client import UserVerification
-
 user_verification = UserVerification(mobile_number="")
 user_verification.send_otp(resend=False)
 ```
@@ -22,10 +20,10 @@ except Exception as e:
 ```
 ### Parameters
 
-| Name           | Description                                                         | Type   |
-|----------------|---------------------------------------------------------------------|--------|
-| *mobile_number* | Your registered mobile number Eg: "+919999996708"                   | Str    |
-| *resend*          | Boolean value to determine whether the user is requesting a new otp | Str    |
+| Name           | Description                                                             | Type   |
+|----------------|-------------------------------------------------------------------------|--------|
+| *mobile_number* | Your registered mobile number Eg: "+919999996708"                       | Str    |
+| *resend*          | Boolean value which determines whether the user is requesting a new otp | Str    |
 
 ### Return type
 

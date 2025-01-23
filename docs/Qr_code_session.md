@@ -10,14 +10,17 @@ client.qr_code_generate_session(ott='', ucc='')
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
 
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
+base_url = BaseUrl(ucc='').get_base_url()
+
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
 
 try:
     client.qr_code_generate_session(ott='', ucc='')
     
 except Exception as e:
-    print("Exception when calling QrCodeApi->qr_code_get_link: %s\n" % e)
+    print("Exception when calling QrCodeApi->qr_code_generate_session: %s\n" % e)
 ```
 ### Parameters
 

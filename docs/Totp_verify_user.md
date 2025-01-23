@@ -11,15 +11,14 @@ user_verification.totp_verify_user(ucc="")
 
 
 ```python
-from neo_api_client import NeoAPI
 from neo_api_client import UserVerification
 
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment="uat")
+user_verification = UserVerification(mobile_number="")
+user_verification.send_otp(resend=False)
+user_verification.verify_otp(code="")
 
 try:
-    user_verification = UserVerification(mobile_number="")
-    user_verification.send_otp(resend=False)
-    user_verification.verify_otp(code="5052")
+    
     user_verification.totp_verify_user(ucc="")
     
 except Exception as e:
@@ -34,19 +33,19 @@ except Exception as e:
 
 ### Return type
 
-object
+**object**
 
 ### Sample response
 ```json
 {
     "data": {
         "status": "success",
-        "key": "RX6PKQ2LZUKNON2BGVTVABCDEF",
-        "qrCodeBase64": "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX ///8AAABVwtN+AAADcUlEQVR42uyZMY77vA7Ex3ChUjeILhJY13IRQAZc5Fo2chH5BixVGJoH0kn+2e4VX7wqVtU6+RXakBwOafydv/Nfn0hyCeLI7MlN3A5w6jeStRlgANxjE6SVGHuSU5clcRP76iQg8L7AO+p3105wG4IvcRPujQEXFAyQEZ2Uvgbg2p0OBEG/QEMqBZECNAZouKt3cw3k0tFRyaX7mQ/fBTTtH5sUDeL9448fdfHbgJ6+Ajccl9dKxRjzDxH5OuC5d+LmJfBOiptX+tJv1Pi2AgwBwMUXdPSkxp2Z90f15S0gZwCO2ZebZXsQ1Qkr0o9L/joAsMTqcRvA0tNkXyXfl9twGhDgds20lZwQ6OYF/v4gNQlbAYajPt2kShuzt6eiSjvXs4COsG6zRwJ99m7vMhIzOC/NAANU20lVWi1JE/n0yEA6DYgUt1x8SaSfrhfNtMCCQJO2RgAEIGbvppiPljSvtM/VcZ0ERLVVGW7qiKSO66ZhVbV/6kMLQJcF14tHzyxj3MRpgd5ZUdJpwGC55Utf1QxTtCN79ckfHubXgS5jvF7AmRljrFabCrA80+EEYAieqgZTJBIpnFeNrypGO4BNNNl6t5ocPv2Dilg9C4hZ+4uobKrrY0k1YOw3Ke+6aACgZZqWpKSlEzMSqrQflvXrgM6hFY6LhtWCGKw1f/wXvw50hApI6ddstBWpenj3r3d/H7Bjj6O2n3nRS2b/1ocGgOHZsqeY/RR1ou8O/ed0GmCxq9BhWXCFhjb4cg18F28LADD21SMtQZyWw95Rxp4sN5wFdFk9jK0XbMWhPVrGK/BOuQYA27pUbwur4yddibQHngjE45Ez6csVHn0N1ppf40MLwBBo5XDT3NuhEyt1jqb7V5vfBgBxT1slI4IcblRbz8sVNwGwHAIb1LqjqBt1zPgx0n4X0Klq6UTnLPNXuMXMydJ+aQeg2Aw4IcgxUkQbn+XVu08AIuEeh7Wz7cazSMlXx2kBOLZqtiNSk0Nb2H5OzScAtl18dpz02MjZNnubvFxxC8Cxp9VyoOYekap+kj8Hsa8DgSrylu33w888X0O83oA0Aujl+/UwOiWtR7W6aTgZsMndpoYb4O979x4fmgAAZzMygp/6DOiPeN8vbxE7ATjeqdE2n2m/AGmlpB0oqTYD/J2/8/+f/wUAAP//5R96G4r=",
-        "uri": "otpauth: //totp/KOTAK-NEO:YOJE0?issuer=KOTAK-NEO&secret=RX6PKQ2LZUKNON2BGVTVABCDEF",
+        "key": "",
+        "qrCodeBase64": "",
+        "uri": "",
         "issuer": "KOTAK-NEO",
         "message": "Scan the QR code with your authenticator app or copy key to manually import in authenticator app",
-        "sessionID": "c39688db-c1e0-416a-aa51-d10fe6996a91"
+        "sessionID": ""
     }
 }
 ```

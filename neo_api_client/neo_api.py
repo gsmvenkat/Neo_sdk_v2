@@ -164,7 +164,7 @@ class NeoAPI:
 
     def cancel_cover_order(self, order_id, amo="NO", isVerify=False):
         """
-            Cancels an order with the given `order_id` using the NEO API.
+            Cancels a cover order with the given `order_id` using the NEO API.
 
             Args: order_id (str): The ID of the order to cancel.
             amo (str, optional): Default is "NO" for no amount specified.
@@ -193,7 +193,7 @@ class NeoAPI:
 
     def cancel_bracket_order(self, order_id, amo="NO", isVerify=False):
         """
-            Cancels an order with the given `order_id` using the NEO API.
+            Cancels a bracket order with the given `order_id` using the NEO API.
 
             Args: order_id (str): The ID of the order to cancel.
             amo (str, optional): Default is "NO" for no amount specified.
@@ -618,6 +618,20 @@ class NeoAPI:
             print("Please complete the Login Flow to Subscribe the Scrips")
 
     def un_subscribe(self, instrument_tokens, isIndex=False, isDepth=False):
+        """
+            Unsubscribe the live feeds for the subscribed instrument tokens.
+
+            Args:
+                instrument_tokens (List): A JSON-encoded list of instrument tokens.
+                isIndex (bool): Whether the instrument is an index. Default is False.
+                isDepth (bool): Whether to subscribe to depth data. Default is False.
+
+            Raises:
+                ValueError: If the login flow is not completed.
+
+            Returns:
+                Message that its successfully unsubscribed
+        """
         if self.configuration.edit_token and self.configuration.edit_sid:
             if not self.NeoWebSocket:
                 self.NeoWebSocket = neo_api_client.NeoWebSocket(self.configuration.edit_sid,
@@ -772,6 +786,23 @@ class NeoAPI:
         return quotes_response
 
     def qr_code_get_link(self, ucc=None):
+        """
+            Retrieves The redirect url for scanning the qrcode, which is the first step in qrcode login flow
+
+            Args:
+                ucc (str): Unique Client Code which you will find in mobile application/website under profile section
+
+            Returns:
+                {
+                    "data": {
+                        "baseDomain": "",
+                        "redirectUrl": ""
+                    }
+                }
+
+            Raises:
+                Error: If ucc is not provided.
+        """
         if not ucc:
             error = {
                 'error': [{'message': 'Validation Errors! UCC is missing'}]}
@@ -781,6 +812,25 @@ class NeoAPI:
         return qr_code_get_link
 
     def qr_code_generate_session(self, ott=None, ucc=None):
+        """
+            Establishes a session with the API using the ott and ucc.
+
+            Parameters:
+            mpin (str): The 6 digit pin
+
+            Returns: {
+                "data": {"token": "", "sid": "", "rid": "", "hsServerId": "", "isUserPwdExpired": ,
+                    "caches": { "baskets": "", "lastUpdatedTS": "", "multiplewatchlists": "", "techchartpreferences": "" },
+                    "ucc": "", "greetingName": "", "isTrialAccount": , "dataCenter": "", "searchAPIKey": "",
+                    "derivativesRiskDisclosure": "", "mfAccess": , "dataCenterMap": , "dormancyStatus": "",
+                    "asbaStatus": "", "clientType": "", "isNRI":
+                }
+            }
+
+            Updates:
+            edit_token: sets the edit token obtained from the API response.
+        """
+
         if not ott or not ucc:
             error = {
                 'error': [{'message': 'Validation Errors! Either OTT or UCC is missing'}]}

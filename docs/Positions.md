@@ -10,12 +10,14 @@ client.positions()
 ```python
 
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
+
+base_url = BaseUrl(ucc='').get_base_url()
 
 #First initialize session and generate session token
-
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment=" ")
-client.login(mobilenumber=" ", password=" ")
-client.session_2fa("")
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+client.totp_login(mobilenumber="", ucc="", totp='')
+client.totp_validate(mpin="")
 
 try:
     client.positions()
@@ -30,43 +32,66 @@ except Exception as e:
 ### Sample response
 ```json
 {
-    "stat": "Ok",
+    "stat": "ok",
     "stCode": 200,
     "data": [
-              {
-                "buyAmt": "2625.00",
-                "cfSellAmt": "0.00",
-                "prod": "NRML",
-                "exSeg": "nse_fo",
-                "sqrFlg": "Y",
-                "actId": "PRS2206",
-                "cfBuyQty": "0",
-                "cfSellQty": "0",
-                "tok": "53179",
-                "flBuyQty": "25",
-                "flSellQty": "25",
-                "sellAmt": "2625.00",
-                "posFlg": "true",
-                "cfBuyAmt": "0.00",
-                "stkPrc": "0.00",
-                "trdSym": "BANKNIFTY21JULFUT",
-                "sym": "BANKNIFTY",
-                "expDt": "29 Jul, 2021",
-                "type": "FUTIDX",
-                "series": "XX",
-                "brdLtQty": "25",
-                "exp": "1627569000",
-                "optTp": "XX",
-                "genNum": "1",
-                "genDen": "1",
-                "prcNum": "1",
-                "prcDen": "1",
-                "lotSz": "25",
-                "multiplier": "1",
-                "precision": "2",
-                "hsUpTm": "2021/07/13 18:34:44"        
-              }
-            ]
+        {
+            "actId": "",
+            "algCat": "NA",
+            "algId": "NA",
+            "avgPrc": "9.39",
+            "boeSec": 1737536296,
+            "brdLtQty": 1,
+            "brkClnt": "NA",
+            "cstFrm": "C",
+            "exOrdId": "1100000059569867",
+            "exp": "-",
+            "expDt": "NA",
+            "exSeg": "nse_cm",
+            "exTm": "22-Jan-2025 14:28:01",
+            "fldQty": 1,
+            "flDt": "22-Jan-2025",
+            "flId": "207983744",
+            "flLeg": 1,
+            "flTm": "14:28:16",
+            "minQty": 0,
+            "nOrdNo": "250122000612876",
+            "nReqId": "1",
+            "optTp": "- ",
+            "ordDur": "NA",
+            "ordGenTp": "--",
+            "prcTp": "L",
+            "prod": "NRML",
+            "rmk": "--",
+            "rptTp": "fill",
+            "series": "EQ",
+            "stkPrc": "0.00",
+            "sym": "IDEA",
+            "trdSym": "IDEA-EQ",
+            "trnsTp": "B",
+            "usrId": "AVRPC7535J",
+            "genDen": "1",
+            "genNum": "1",
+            "hsUpTm": "2025/01/22 14:28:16",
+            "GuiOrdId": "",
+            "locId": "111111111111100",
+            "lotSz": "1",
+            "multiplier": "1",
+            "ordSrc": "NA",
+            "prcNum": "1",
+            "prcDen": "1",
+            "strategyCode": "",
+            "precision": "2",
+            "tok": "",
+            "updRecvTm": 1737536296355319176,
+            "uSec": "1737536296",
+            "posFlg": "",
+            "prc": "",
+            "qty": 0,
+            "tm": "",
+            "it": "EQ"
+        }
+    ]
 }
 
 ```

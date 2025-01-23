@@ -1,10 +1,8 @@
 # **Quotes**
-Get quotes details - `quote_type` can be `all`, `depth`, `ohlc`, `ltp`, `oi`, `52w`, `circuit_limits`, `scrip_details` <br/>
 
-By default, `quote_type` is set as `all`, which means you will get the complete data.<br/>
-
-Quotes API can be accessed without completing login by passing `session_token`, `sid`, and `server_id`.
-
+Quotes API can be accessed by access token without completing login.instrument_tokens: This is a list of dictionaries.
+    # instrument_token: The instrument token of the stock
+    # exchange_segment: Expected values are nse_cm, bse_cm, nse_fo, bse_fo, cde_fo
 ```python
 client.quotes_neo_symbol(neo_symbol = neo_symbol, quote_type = "")
 ```
@@ -28,6 +26,13 @@ try:
 except Exception as e:
     print("Exception when calling Quotes Api->quotes: %s\n" % e)
 ```
+
+### Parameters
+
+| Name                | Description                                                                         | Type |
+|---------------------|-------------------------------------------------------------------------------------|------|
+| *instrument_tokens*  | This is a list of dictionaries                                                      | List |
+| *quote_type*  | all, depth, ohlc, ltp, oi, 52w, circuit_limits, scrip_details (Default value - all) | Str  |
 
 ### Return type
 
