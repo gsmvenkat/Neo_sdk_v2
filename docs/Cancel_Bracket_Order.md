@@ -1,15 +1,15 @@
-# **Cancel_Order**
+# **Cancel_Bracket_Order**
 Cancel an order
 
 ## Method 1 - Quick Method
 ```python
-client.cancel_order(order_id = "")
+client.cancel_bracket_order(order_id = "")
 ```
 
 ## Method 2 - Delayed Method
 This method checks the order status first and then cancels the order if it is open.<br/>
 ```python
-client.cancel_order(order_id = "", isVerify=True)
+client.cancel_bracket_order(order_id = "", isVerify=True)
 ```
 
 ### Example
@@ -28,9 +28,9 @@ client.totp_validate(mpin="")
 
 try:
     # Cancel an order
-    client.cancel_order(order_id = "")
+    client.cancel_bracket_order(order_id = "")
 except Exception as e:
-    print("Exception when calling OrderApi->cancel_order: %s\n" % e)
+    print("Exception when calling OrderApi->cancel_bracket_order: %s\n" % e)
 ```
 
 ### Parameters

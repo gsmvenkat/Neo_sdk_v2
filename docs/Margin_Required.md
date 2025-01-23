@@ -10,12 +10,14 @@ client.margin_required(exchange_segment = "", price = "", order_type= "", produc
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
+
+base_url = BaseUrl(ucc='').get_base_url()
 
 #First initialize session and generate session token
-
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment=" ")
-client.login(mobilenumber=" ", password=" ")
-client.session_2fa("")
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+client.totp_login(mobilenumber="", ucc="", totp='')
+client.totp_validate(mpin="")
 
 try:
     client.margin_required(exchange_segment = "", price = "", order_type= "", product = "",   quantity = "", instrument_token = "",  transaction_type = "")
@@ -29,8 +31,8 @@ except Exception as e:
 |--------------------|--------------------------------------------------------------------------------------------------------------------------|----------------|
 | *exchange_segment* | nse_cm - NSE<br/>bse_cm - BSE<br/>nse_fo - NFO<br/>bse_fo - BFO<br/>cde_fo - CDS<br/>mcx_fo - MCX                        | Str            |
 | *price*            | Price of the order                                                                                                       | Str            |
-| *product*          | NRML - Normal<br/>CNC - Cash and Carry<br/>MIS - MIS<br/>INTRADAY - INTRADAY<br/>CO - Cover Order              | Str            |
 | *order_type*       | L - Limit<br/>MKT - Market<br/>SL - Stop loss limit<br/>SL-M - Stop loss market                                          | Str            |
+| *product*          | NRML - Normal<br/>CNC - Cash and Carry<br/>MIS - MIS<br/>INTRADAY - INTRADAY<br/>CO - Cover Order              | Str            |
 | *quantity*         | Quantity of the order                                                                                    | Str            |
 | *instrument_token* | pSymbol in ScripMaster files                                                                                              | Str            |
 | *transaction_type* | B(Buy), S(sell)                                                                                                          | Str            |
@@ -47,20 +49,18 @@ except Exception as e:
 
 ```json
 {
-    "data": 
-                {
-                    "avlCash": "104.96", 
-                    "insufFund": "12520.04", 
-                    "stat": "Ok", 
-                    "totMrgnUsd": "12625.00", 
-                    "mrgnUsd": "0.00", 
-                    "reqdMrgn": "12625.00", 
-                    "avlMrgn": "104.96", 
-                    "stCode": 200, 
-                    "tid": "server2_2330220", 
-                    "ordMrgn": "12625.00", 
-                    "rmsVldtd": 78
-                }
+    "data": {
+        "avlCash": "38.190000",
+        "totMrgnUsd": "34.280000",
+        "mrgnUsd": "18.780000",
+        "ordMrgn": "15.500000",
+        "rmsVldtd": "OK",
+        "reqdMrgn": "0.000000",
+        "avlMrgn": "0.000000",
+        "insufFund": "0.000000",
+        "stat": "Ok",
+        "stCode": 200
+    }
 }
 ```
 

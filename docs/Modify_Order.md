@@ -18,17 +18,21 @@ client.modify_order(order_id = "", price = "", quantity = "", trigger_price = ""
 
 ```python
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
+
+base_url = BaseUrl(ucc='').get_base_url()
 
 #First initialize session and generate session token
-
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment=" ")
-client.login(mobilenumber=" ", password=" ")
-client.session_2fa("")
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+client.totp_login(mobilenumber="", ucc="", totp='')
+client.totp_validate(mpin="")
 
 try:
     # Modify an existing order
     client.modify_order(instrument_token = "", exchange_segment = "", product = "", price = "", 
-                        order_type = "", quantity= "", validity = "", trading_symbol = "",transaction_type = "", order_id = "", amo = "")
+                        order_type = "", quantity= "", validity = "", trading_symbol = "",transaction_type = "", 
+                        order_id = "", amo = "")
+
 except Exception as e:
     print("Exception when calling OrderApi->modify_order: %s\n" % e)
 
@@ -38,18 +42,20 @@ except Exception as e:
 | Name                 | Description                                                                                                              | Type           |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------|----------------|
 | *instrument_token*   | pSymbol in ScripMaster file (first Column)                                                                               | Str [optional] |
-| *market_protection*  | String - (Default Value - 0)                                                                                             | Str [optional] |
+| *exchange_segment*   | nse_cm - NSE<br/>bse_cm - BSE<br/>nse_fo - NFO<br/>bse_fo - BFO<br/>cde_fo - CDS<br/>mcx_fo - MCX                        | Str [optional] |
 | *product*            | NRML - Normal<br/>CNC - Cash and Carry<br/>MIS - MIS<br/>INTRADAY - INTRADAY<br/>CO - Cover Order  | Str            |
-| *dd*                 | Default Value - “NA”                                                                                                     | Str [optional] |
-| *filled_quantity*    | (Default Value - 0)                                                                                                      | Str [optional] |
+| *price*              | price of the order                                                                                    | Str [optional] |
+| *order_type*         | L - Limit<br/>MKT - Market<br/>SL - Stop loss limit<br/>SL-M - Stop loss market                                          | Str            |
+| *quantity*           | quantity of the order                                                                                        | Str            |
 | *validity*           | Validity of the order - DAY, IOC                                                                                         | Str [optional] |
 | *trading_symbol*     | pTrdSymbol in ScripMaster file                                                                                          | Str            |
 | *transaction_type*   | B(Buy), S(sell)                                                                                                          | Str            |
-| *order_type*         | L - Limit<br/>MKT - Market<br/>SL - Stop loss limit<br/>SL-M - Stop loss market                                          | Str            |
-| *trigger_price*      | Optional, required for stop loss and cover order                                                          | Str [optional] |
-| *quantity*           | quantity of the order                                                                                        | Str            |
 | *order_id*           | order id of the order you want to modify                                                                                       | Str            |
-| *exchange_segment*   | nse_cm - NSE<br/>bse_cm - BSE<br/>nse_fo - NFO<br/>bse_fo - BFO<br/>cde_fo - CDS<br/>mcx_fo - MCX                        | Str [optional] |
+| *amo*                | YES/NO - (Default Value - NO)                                                                         | Str [optional] |
+| *market_protection*  | String - (Default Value - 0)                                                                                             | Str [optional] |
+| *dd*                 | Default Value - “NA”                                                                                                     | Str [optional] |
+| *filled_quantity*    | (Default Value - 0)                                                                                                      | Str [optional] |
+| *trigger_price*      | Optional, required for stop loss and cover order                                                          | Str [optional] |
 
 ### Return type
 

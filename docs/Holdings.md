@@ -10,12 +10,14 @@ client.holdings("")
 ```python
 
 from neo_api_client import NeoAPI
+from neo_api_client import BaseUrl
+
+base_url = BaseUrl(ucc='').get_base_url()
 
 #First initialize session and generate session token
-
-client = NeoAPI(consumer_key=" ",consumer_secret=" ",environment=" ")
-client.login(mobilenumber=" ", password=" ")
-client.session_2fa("")
+client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_token=None, neo_fin_key=None, base_url=base_url)
+client.totp_login(mobilenumber="", ucc="", totp='')
+client.totp_validate(mpin="")
 
 try:
     client.holdings("")
@@ -30,39 +32,25 @@ except Exception as e:
 ### Sample response
 ```json
 {
-      "data": [
-                    {
-                      "symbol": "YESBANK",
-                      "displaySymbol": "YESBANK",
-                      "averagePrice": 21.1225,
-                      "quantity": 4,
-                      "exchangeSegment": "nse_cm",
-                      "exchangeIdentifier": "11915",
-                      "holdingCost": 84.49,
-                      "mktValue": 79,
-                      "scripId": "dade08eae3d978dcb31940b6da2cfbab4ab395d3",
-                      "instrumentToken": 7169,
-                      "instrumentType": "Equity",
-                      "isAlternateScrip": "false",
-                      "closingPrice": 19.75
-                    },
-                    {
-                      "symbol": "CESC",
-                      "displaySymbol": "CESC",
-                      "averagePrice": 80.01,
-                      "quantity": 2,
-                      "exchangeSegment": "nse_cm",
-                      "exchangeIdentifier": "628",
-                      "holdingCost": 160.02,
-                      "mktValue": 147.6,
-                      "scripId": "fb94935fb38a1dd7f87c52e562d6756636fcb7f3",
-                      "instrumentToken": 955,
-                      "instrumentType": "Equity",
-                      "isAlternateScrip": "false",
-                      "closingPrice": 73.8
-                    },
-                ]
-}           
+    "data": [
+        {
+            "displaySymbol": "IDEA",
+            "averagePrice": 9.5699,
+            "quantity": 35,
+            "exchangeSegment": "nse_cm",
+            "exchangeIdentifier": "14366",
+            "holdingCost": 334.9475,
+            "mktValue": 327.6,
+            "scripId": "746a0ebbc6295a002ab27e42a3e06a6792baeba1",
+            "instrumentToken": 8658,
+            "instrumentType": "Equity",
+            "isAlternateScrip": false,
+            "closingPrice": 9.36,
+            "symbol": "IDEA",
+            "sellableQuantity": 35
+        }
+    ]
+}
 
 ```
 
