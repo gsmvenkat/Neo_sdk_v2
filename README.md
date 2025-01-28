@@ -99,7 +99,7 @@ client.qr_code_generate_session(ott='', ucc='')
 # price: scrip price
 # order_type: Expected values are L, MKT, SL, SL-M
 # quantity: The stock quantity(If suppose one lot size of a stock is 25, then in disclosed_quantity you have to pass 25 and not 1)
-# validity: Expected values are DAY
+# validity: Expected values are DAY, IOC, GTC, EOS, GTD
 # trading_symbol: scrip trading symbol. You will get this value from master scrip file
 # transaction_type: Expected values are B, S
 # amo: Expected values are either YES or NO
@@ -119,7 +119,7 @@ client.place_order(exchange_segment='', product='', price='', order_type='', qua
 # quantity: The stock quantity(If suppose one lot size of a stock is 25, then in disclosed_quantity you have to pass 25 and not 1)
 # disclosed_quantity: by default 0. Disclosed quantity (DQ) is a feature that allows traders to only disclose a portion of their order quantity to the market. This feature is useful when trading large quantities of shares. For example, if your quantity is 10, then disclosed_quantity can be between 0 to 10 (only disclosed _quantity will be visible in market depth)
 # trigger_price: Price on which ypur order will be open to the market
-# validity: Expected values are DAY
+# validity: Expected values are DAY, IOC, GTC, EOS, GTD
 # order_type: Expected values are L, MKT, SL, SL-M
 client.modify_order(order_id = "", price = "7.0", quantity = "2", disclosed_quantity = "0", trigger_price = "0", validity = "DAY", order_type='')
 
