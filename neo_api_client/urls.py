@@ -31,12 +31,3 @@ ORDER_FEED_URL_E43 = "wss://e43.kotaksecurities.com/realtime"
 #                               BASE_URL  URL
 #############################################################################
 BASE_URL = "https://lapi.kotaksecurities.com/algo-user/v5/get-base-url"
-
-#############################################################################
-#                               USER VERIFICATION URL
-#############################################################################
-GENERATE_OTP_URL = "https://lapi.kotaksecurities.com/algo-user/v5/register/otp/send"
-VALIDATE_OTP_URL = "https://lapi.kotaksecurities.com/algo-user/v5/register/otp/verify"
-TOTP_VERIFY_USER_URL = "https://lapi.kotaksecurities.com/login/v6/totp/verify-user"
-TOTP_REGISTER_URL = "https://lapi.kotaksecurities.com/login/v6/totp/register"
-TOTP_DE_REGISTER_URL = "https://lapi.kotaksecurities.com/login/v6/totp/deregister"
