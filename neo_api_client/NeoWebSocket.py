@@ -632,8 +632,6 @@ class NeoWebSocket:
                 url = ORDER_FEED_URL_E41
             elif self.data_center.lower() == 'e43':
                 url = ORDER_FEED_URL_E43
-        print("start_hsi_websocket, url-------------->", url)
-        # print("message------->", self.on_hsi_message)
         self.hsiWebsocket = neo_api_client.HSIWebSocket()
         self.hsiWebsocket.open_connection(url=url, onopen=self.on_hsi_open,
                                           onmessage=self.on_hsi_message,
