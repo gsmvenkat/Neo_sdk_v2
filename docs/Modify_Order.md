@@ -47,7 +47,7 @@ except Exception as e:
 | *price*              | price of the order                                                                                    | Str [optional] |
 | *order_type*         | L - Limit<br/>MKT - Market<br/>SL - Stop loss limit<br/>SL-M - Stop loss market                                          | Str            |
 | *quantity*           | quantity of the order                                                                                        | Str            |
-| *validity*           | Validity of the order - DAY, IOC                                                                                         | Str [optional] |
+| *validity*           | Validity of the order <br/> DAY - (Applicable for all orders across all segments)<br/> IOC - Immediate or Cancel (Not applicable for CO)<br/> GTC - Good Till Cancel (Applicable only for orders in MCX market)<br/> EOS - End of Session (Applicable only for orders in BSE and MCX market)<br/> GTD - Good Till Date (Applicable only for orders in MCX market) | Str [optional] |
 | *trading_symbol*     | pTrdSymbol in ScripMaster file                                                                                          | Str            |
 | *transaction_type*   | B(Buy), S(sell)                                                                                                          | Str            |
 | *order_id*           | order id of the order you want to modify                                                                                       | Str            |
