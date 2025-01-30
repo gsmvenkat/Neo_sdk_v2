@@ -277,13 +277,8 @@ client.logout()
 |------------------------|--------------------------------------------------------------------------------------------|--------------------------|
 | *Base Url*             | [**neo_api_client.BaseUrl**](docs/Base_url.md#base_url)                                    | Base Url                 |
 | *LoginAPI*             | [**neo_api_client.SessionINIT**](docs/Session_init.md#session_init)                        | Initialise Session       |
-| *User Verification*    | [**neo_api_client.SendOTP**](docs/SendOTP.md#user_verification_send_otp)                   | Send OTP                 |
-| *User Verification*    | [**neo_api_client.VerifyOTP**](docs/VerifyOTP.md#user_verification_verify_otp)             | Send OTP                 |
-| *TOTP LoginAPI*        | [**neo_api_client.Totp_verify_user**](docs/Totp_verify_user.md#totp_verify_user)           | Verify User              |
-| *TOTP LoginAPI*        | [**neo_api_client.Totp_registration**](docs/Totp_register.md#totp_register)                | TOTP Registration        |
 | *TOTP LoginAPI*        | [**neo_api_client.Totp_login**](docs/Totp_login.md#totp_login)                             | TOTP Login               |
 | *TOTP LoginAPI*        | [**neo_api_client.Totp_validation**](docs/Totp_validate.md#totp_validate)                  | TOTP Validation          |
-| *TOTP LoginAPI*        | [**neo_api_client.Totp_deregister**](docs/Totp_deregister.md#totp_deregister)              | TOTP De-Register         |
 | *QR Code LoginAPI*     | [**neo_api_client.Qr_code_link**](docs/Qr_code_link.md#qr_code_link)                       | QR Code Get Link         |
 | *QR Code LoginAPI*     | [**neo_api_client.Qr_code_session**](docs/Qr_code_session.md#qr_code_session)              | QR Code Generate Session |
 | *Place Order*          | [**neo_api_client.placeorder**](docs/Place_Order.md#place_order)                           | Place Order              |
