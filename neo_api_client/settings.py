@@ -74,7 +74,7 @@ exchange_segment = {"nse_cm": "nse_cm", "NSE": "nse_cm", "nse": "nse_cm", "BSE":
 
 product = {"Normal": "NRML", "NRML": "NRML", "CNC": "CNC", "cnc": "CNC", "Cash and Carry": "CNC", "MIS": "MIS",
            "mis": "MIS", "INTRADAY": "INTRADAY", "intraday": "INTRADAY", "Cover Order": "CO", "co": "CO",
-           "CO": "CO", "BO": "Bracket Order", "Bracket Order": "Bracket Order", "bo": "Bracket Order"}
+           "CO": "CO", "BO": "BO", "Bracket Order": "BO", "bo": "BO"}
 
 order_type = {"Limit": "L", "L": "L", "l": "L", "MKT": "MKT", "mkt": "MKT", "Market": "MKT", "sl": "SL", "SL": "SL",
               "Stop loss limit": "SL", "Stop loss market": "SL-M", "SL-M": "SL-M", "sl-m": "SL-M", "Spread": "SP",
