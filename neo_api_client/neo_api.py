@@ -75,15 +75,37 @@ class NeoAPI:
             except ApiException as ex:
                 error = ex
         elif access_token:
-            self.configuration = neo_api_client.NeoUtility(access_token=access_token, host=environment)
+            self.configuration = neo_api_client.NeoUtility(access_token=access_token, host=environment, base_url=base_url)
             self.api_client = ApiClient(self.configuration)
 
         self.NeoWebSocket = None
         self.configuration.neo_fin_key = neo_fin_key
 
-    def place_order(self, exchange_segment, product, price, order_type, quantity, validity, trading_symbol,
-                    transaction_type, amo="NO", disclosed_quantity="0", market_protection="0", pf="N",
-                    trigger_price="0", tag=None):
+    def place_order(
+            self,
+            exchange_segment,
+            product,
+            price,
+            order_type,
+            quantity,
+            validity,
+            trading_symbol,
+            transaction_type,
+            amo="NO",
+            disclosed_quantity="0",
+            market_protection="0",
+            pf="N",
+            trigger_price="0",
+            tag=None,
+            scrip_token=None,
+            square_off_type=None,
+            stop_loss_type=None,
+            stop_loss_value=None,
+            square_off_value=None,
+            last_traded_price=None,
+            trailing_stop_loss=None,
+            trailing_sl_value=None,
+    ):
         """
             Places an order on the specified exchange segment and product, for a given trading symbol, transaction type,
             order type, quantity, and price.
@@ -117,15 +139,30 @@ class NeoAPI:
                 exchange_segment = neo_api_client.settings.exchange_segment[exchange_segment]
                 product = neo_api_client.settings.product[product]
                 order_type = neo_api_client.settings.order_type[order_type]
-                place_order = neo_api_client.OrderAPI(self.api_client).order_placing(exchange_segment=exchange_segment,
-                                                                                     product=product, price=price,
-                                                                                     order_type=order_type, quantity=quantity,
-                                                                                     validity=validity,
-                                                                                     trading_symbol=trading_symbol,
-                                                                                     transaction_type=transaction_type, amo=amo,
-                                                                                     disclosed_quantity=disclosed_quantity,
-                                                                                     market_protection=market_protection, pf=pf,
-                                                                                     trigger_price=trigger_price, tag=tag)
+                place_order = neo_api_client.OrderAPI(self.api_client).order_placing(
+                    exchange_segment=exchange_segment,
+                    product=product,
+                    price=price,
+                    order_type=order_type,
+                    quantity=quantity,
+                    validity=validity,
+                    trading_symbol=trading_symbol,
+                    transaction_type=transaction_type,
+                    amo=amo,
+                    disclosed_quantity=disclosed_quantity,
+                    market_protection=market_protection,
+                    pf=pf,
+                    trigger_price=trigger_price,
+                    tag=tag,
+                    scrip_token=scrip_token,
+                    square_off_type=square_off_type,
+                    stop_loss_type=stop_loss_type,
+                    stop_loss_value=stop_loss_value,
+                    square_off_value=square_off_value,
+                    last_traded_price=last_traded_price,
+                    trailing_stop_loss=trailing_stop_loss,
+                    trailing_sl_value=trailing_sl_value,
+                )
 
                 return place_order
             except Exception as e:
