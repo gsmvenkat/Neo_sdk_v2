@@ -2,9 +2,30 @@
 Place a New order
 
 ```python
-client.place_order(exchange_segment="", product="", price="", order_type="", quantity="", validity="", trading_symbol="",
-                   transaction_type="", amo="", disclosed_quantity="", market_protection="", pf="", trigger_price="",
-                   tag=)
+client.place_order(
+    exchange_segment="",
+    product="",
+    price="",
+    order_type="",
+    quantity="",
+    validity="",
+    trading_symbol="",
+    transaction_type="",
+    amo="NO",
+    disclosed_quantity="0",
+    market_protection="0",
+    pf="N",
+    trigger_price="0",
+    tag=None,
+    scrip_token=None,
+    square_off_type=None,
+    stop_loss_type=None,
+    stop_loss_value=None,
+    square_off_value=None,
+    last_traded_price=None,
+    trailing_stop_loss=None,
+    trailing_sl_value=None,
+)
 ```
 
 ### Example
@@ -22,9 +43,30 @@ client.totp_login(mobilenumber="", ucc="", totp='')
 client.totp_validate(mpin="")
 try:
     # Place a Order
-    client.place_order(exchange_segment="", product="", price="", order_type="", quantity="", validity="", trading_symbol="",
-                       transaction_type="", amo="NO", disclosed_quantity="0", market_protection="0", pf="N",
-                       trigger_price="0", tag=None)
+    client.place_order(
+        exchange_segment="",
+        product="",
+        price="",
+        order_type="",
+        quantity="",
+        validity="",
+        trading_symbol="",
+        transaction_type="",
+        amo="NO",
+        disclosed_quantity="0",
+        market_protection="0",
+        pf="N",
+        trigger_price="0",
+        tag=None,
+        scrip_token=None,
+        square_off_type=None,
+        stop_loss_type=None,
+        stop_loss_value=None,
+        square_off_value=None,
+        last_traded_price=None,
+        trailing_stop_loss=None,
+        trailing_sl_value=None,
+    )
 except Exception as e:
     print("Exception when calling OrderApi->place_order: %s\n" % e)
 ``` 

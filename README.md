@@ -108,9 +108,39 @@ client.qr_code_generate_session(ott='', ucc='')
 # pf: by default N
 # trigger_price: Price on which ypur order will be open to the market
 # tag: Give your own tag to track the order
-client.place_order(exchange_segment='', product='', price='', order_type='', quantity='', validity='', trading_symbol='', 
-                   transaction_type='', amo='NO', disclosed_quantity='0', market_protection='0', pf='N', 
-                   trigger_price='0', tag=None)
+# scrip_token: Applicable only for Bracket Order
+# square_off_type: Applicable only for Bracket Order. Expected Values are 'Absolute' and 'Ticks'.
+# stop_loss_type: Applicable only for bracket Order. Expected Values are 'Absolute' and 'Ticks'.
+# stop_loss_value: Applicable only for Bracket Order
+# square_off_value: Applicable only for Bracket Order
+# last_traded_price: Applicable only for Bracket Order
+# trailing_stop_loss: Applicable only for Bracket Order. Expected Values are 'Y' and 'N'.
+# trailing_sl_value: Applicable only for Bracket Order. Expected Values are 'Y' and 'N'.	
+client.place_order(
+    exchange_segment="",
+    product="",
+    price="",
+    order_type="",
+    quantity="",
+    validity="",
+    trading_symbol="",
+    transaction_type="",
+    amo="NO",
+    disclosed_quantity="0",
+    market_protection="0",
+    pf="N",
+    trigger_price="0",
+    tag=None,
+    scrip_token=None,
+    square_off_type=None,
+    stop_loss_type=None,
+    stop_loss_value=None,
+    square_off_value=None,
+    last_traded_price=None,
+    trailing_stop_loss=None,
+    trailing_sl_value=None,
+)
+
 
 						
 # Modify an order
