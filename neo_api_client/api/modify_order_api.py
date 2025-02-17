@@ -1,6 +1,7 @@
 import neo_api_client
 from neo_api_client import rest
 from neo_api_client.exceptions import ApiException
+from neo_api_client.urls import PROD_BASE_URL_GW_NAPI
 
 
 class ModifyOrder(object):
@@ -24,7 +25,10 @@ class ModifyOrder(object):
 
         query_params = {"sId": self.api_client.configuration.serverId}
         try:
-            URL = self.api_client.configuration.get_url_details("modify_order")
+            if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+                URL = self.api_client.configuration.get_url_details("modify_order_napi")
+            else:
+                URL = self.api_client.configuration.get_url_details("modify_order")
             orders_resp = self.rest_client.request(
                 url=URL, method='POST',
                 query_params=query_params,
@@ -89,7 +93,10 @@ class ModifyOrder(object):
                         }
                         query_params = {"sId": self.api_client.configuration.serverId}
                         try:
-                            URL = self.api_client.configuration.get_url_details("modify_order")
+                            if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+                                URL = self.api_client.configuration.get_url_details("modify_order_napi")
+                            else:
+                                URL = self.api_client.configuration.get_url_details("modify_order")
                             orders_resp = self.rest_client.request(
                                 url=URL, method='POST',
                                 query_params=query_params,

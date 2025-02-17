@@ -3,6 +3,8 @@ from json import JSONDecodeError
 
 from requests import session
 
+from neo_api_client.urls import PROD_BASE_URL_GW_NAPI
+
 
 class TotpAPI(object):
 
@@ -14,7 +16,10 @@ class TotpAPI(object):
 
     def totp_login(self, mobile_number=None, ucc=None, totp=None):
         header_params = {'Authorization': "Bearer " + self.api_client.configuration.bearer_token, 'neo-fin-key': self.api_client.configuration.get_neo_fin_key()}
-        URL = self.api_client.configuration.get_url_details("totp_login")
+        if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+            URL = self.api_client.configuration.get_url_details("totp_login_napi")
+        else:
+            URL = self.api_client.configuration.get_url_details("totp_login")
         body_params = {
             "mobileNumber": mobile_number,
             "ucc": ucc,
@@ -44,7 +49,10 @@ class TotpAPI(object):
                          "Auth": self.api_client.configuration.view_token,
                          'neo-fin-key': self.api_client.configuration.get_neo_fin_key()
                          }
-        URL = self.api_client.configuration.get_url_details("totp_validate")
+        if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+            URL = self.api_client.configuration.get_url_details("totp_validate_napi")
+        else:
+            URL = self.api_client.configuration.get_url_details("totp_validate")
         body_params = {
             "mpin": mpin
         }

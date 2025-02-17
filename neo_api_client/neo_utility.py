@@ -7,7 +7,7 @@ import base64
 import jwt
 from neo_api_client.exceptions import ApiValueError
 from neo_api_client.urls import SESSION_UAT_BASE_URL, SESSION_PROD_BASE_URL, UAT_BASE_URL, PROD_BASE_URL, \
-    PROD_BASE_URL_ADC, SESSION_PROD_BASE_URL_ADC
+    PROD_BASE_URL_ADC, SESSION_PROD_BASE_URL_ADC, PROD_BASE_URL_NAPI, PROD_BASE_URL_GW_NAPI
 from neo_api_client.settings import UAT_URL, PROD_URL
 
 
@@ -69,11 +69,15 @@ class NeoUtility:
             if session_init:
                 if self.host.lower().strip() == 'prod':
                     base_url = self.base_url
+                    if self.base_url == PROD_BASE_URL_GW_NAPI:
+                        base_url = PROD_BASE_URL_NAPI
                 else:
                     base_url = SESSION_UAT_BASE_URL
             else:
                 if self.host.lower().strip() == 'prod':
                     base_url = self.base_url
+                    if self.base_url == PROD_BASE_URL_GW_NAPI:
+                        base_url = PROD_BASE_URL_GW_NAPI
                 else:
                     base_url = UAT_BASE_URL
 

@@ -2,6 +2,7 @@ import json
 
 from neo_api_client import rest
 from neo_api_client.exceptions import ApiException
+from neo_api_client.urls import PROD_BASE_URL_GW_NAPI
 
 
 class OrderHistoryAPI(object):
@@ -18,7 +19,10 @@ class OrderHistoryAPI(object):
                          "Content-Type": "application/x-www-form-urlencoded"}
         body_params = {"nOrdNo": order_id}
         query_params = {"sId": self.api_client.configuration.serverId}
-        URL = self.api_client.configuration.get_url_details("order_history")
+        if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+            URL = self.api_client.configuration.get_url_details("order_history_napi")
+        else:
+            URL = self.api_client.configuration.get_url_details("order_history")
 
         try:
             history_report = self.rest_client.request(

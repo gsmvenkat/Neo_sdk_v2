@@ -26,15 +26,7 @@ class LoginAPI(object):
         body_params = {
             "grant_type": "client_credentials",
         }
-        from neo_api_client import SESSION_PROD_BASE_URL, SESSION_PROD_BASE_URL_ADC
-        if (
-                not self.api_client.configuration.base_url
-                or self.api_client.configuration.base_url
-                not in (
-                SESSION_PROD_BASE_URL,
-                SESSION_PROD_BASE_URL_ADC,
-        )
-        ):
+        if not self.api_client.configuration.base_url:
             return {
                 "Message": "Error occurred to initialise the session. Base url missing or incorrect value."
             }

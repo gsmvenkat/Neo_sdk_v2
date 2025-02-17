@@ -1,6 +1,7 @@
 import requests
 from neo_api_client import rest
 from neo_api_client.exceptions import ApiException
+from neo_api_client.urls import PROD_BASE_URL_GW_NAPI
 
 
 class LimitsAPI(object):
@@ -21,8 +22,10 @@ class LimitsAPI(object):
 
         body_params = {"seg": segment, "exch": exchange, "prod": product}
 
-        URL = self.api_client.configuration.get_url_details("limits")
-
+        if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+            URL = self.api_client.configuration.get_url_details("limits_napi")
+        else:
+            URL = self.api_client.configuration.get_url_details("limits")
         try:
             limits_report = self.rest_client.request(
                 url=URL, method='POST',
