@@ -1,6 +1,7 @@
 import neo_api_client
 from neo_api_client import rest
 from neo_api_client.exceptions import ApiException
+from neo_api_client.urls import PROD_BASE_URL_GW_NAPI
 
 
 class OrderAPI(object):
@@ -70,7 +71,10 @@ class OrderAPI(object):
             }
 
             query_params = {"sId": self.api_client.configuration.serverId}
-            URL = self.api_client.configuration.get_url_details("place_order")
+            if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+                URL = self.api_client.configuration.get_url_details("place_order_napi")
+            else:
+                URL = self.api_client.configuration.get_url_details("place_order")
             orders_resp = self.rest_client.request(
                 url=URL, method='POST',
                 query_params=query_params,
@@ -102,7 +106,10 @@ class OrderAPI(object):
         body_params = {"on": order_id, "am": amo}
 
         query_params = {"sId": self.api_client.configuration.serverId}
-        URL = self.api_client.configuration.get_url_details("cancel_order")
+        if self.api_client.configuration.base_url == PROD_BASE_URL_GW_NAPI:
+            URL = self.api_client.configuration.get_url_details("cancel_order_napi")
+        else:
+            URL = self.api_client.configuration.get_url_details("cancel_order")
         try:
             cancel_resp = self.rest_client.request(
                 url=URL, method='POST',
