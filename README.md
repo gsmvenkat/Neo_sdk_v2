@@ -61,7 +61,24 @@ client = NeoAPI(consumer_key="", consumer_secret="", environment='prod', access_
 
 
 # Login using TOTP
-# Complete your TOTP registration from Kotak Securities website
+# Complete your TOTP registration from Kotak Securities website. Follow steps mentioned below.
+
+# Visit https://www.kotaksecurities.com/platform/kotak-neo-trade-api/ and select Register for Totp.
+# Totp registration is a one time step where you can register for totp on your mobile and start receiving totps.
+
+# Step 1 - Verify your mobile no with OTP
+
+# Step 2 - Select account, for which you want to register for totp
+
+# Step 3 - Select option to register for totp
+
+# Step 4 - You will receive a QR code, which is valid for 5 minutes
+
+# Step 5 - Open any authenticator app, and scan the QR code
+
+# Step 6 - You will start receiving the Totps on the authenticator apps
+
+# Step 7 - Submit the totp on the QR code page to complete the Totp registration
 
 # mobile_number: registered mobile number
 # ucc: Unique Client Code which you will find in mobile application/website under profile section
