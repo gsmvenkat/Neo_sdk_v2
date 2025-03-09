@@ -187,8 +187,8 @@ class NeoWebSocket:
             self.is_hsw_open = 0
             # if self.quotes_arr:
             #     self.quotes_api_callback(error)
-        if self.hsWebsocket:
-            self.hsWebsocket.close()
+        # if self.hsWebsocket:
+        #     self.hsWebsocket.close()
         if self.on_error:
             self.on_error(error)
         else:
